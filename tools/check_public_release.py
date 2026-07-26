@@ -114,7 +114,8 @@ _TEXT_PATTERNS = (
     ("Slack token", re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{20,}\b")),
 )
 _GITHUB_NOREPLY_EMAIL = re.compile(
-    r"(?i)^(?:\d+\+)?[A-Za-z0-9-]+@users\.noreply\.github\.com$"
+    r"(?i)^(?:(?:\d+\+)?[A-Za-z0-9-]+@users\.noreply\.github\.com"
+    r"|noreply@github\.com)$"
 )
 _FORBIDDEN_MANUAL_FIELDS = {
     "command_pattern",

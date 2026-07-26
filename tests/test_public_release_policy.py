@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from tools.check_public_release import (
+    _GITHUB_NOREPLY_EMAIL,
     _path_violation,
     _scan_text,
     run_checks,
@@ -39,6 +40,21 @@ class PublicReleasePolicyTests(unittest.TestCase):
             _scan_text("-----BEGIN " + "PRIVATE KEY-----"),
         )
         self.assertEqual(_scan_text("C:/results/demo.json"), [])
+
+    def test_only_user_and_github_system_noreply_identities_are_allowed(
+        self,
+    ) -> None:
+        self.assertIsNotNone(
+            _GITHUB_NOREPLY_EMAIL.fullmatch(
+                "87023919+obundh@users.noreply.github.com"
+            )
+        )
+        self.assertIsNotNone(
+            _GITHUB_NOREPLY_EMAIL.fullmatch("noreply@github.com")
+        )
+        self.assertIsNone(
+            _GITHUB_NOREPLY_EMAIL.fullmatch("personal@example.com")
+        )
 
 
 if __name__ == "__main__":
