@@ -50,6 +50,19 @@ class WindowsReleasePackagingTests(unittest.TestCase):
         self.assertNotIn("uses: actions/checkout@v4", workflow)
         self.assertNotIn("uses: actions/setup-python@v5", workflow)
 
+    def test_ci_audits_the_pr_source_commit_not_a_synthetic_merge(self) -> None:
+        workflow = (
+            PROJECT_ROOT / ".github" / "workflows" / "ci.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            "ref: ${{ github.event.pull_request.head.sha || github.sha }}",
+            workflow,
+        )
+        self.assertIn("persist-credentials: false", workflow)
+        self.assertNotIn("uses: actions/checkout@v4", workflow)
+        self.assertNotIn("uses: actions/setup-python@v5", workflow)
+
     def test_release_contains_only_allowlisted_payload_and_valid_hashes(
         self,
     ) -> None:
