@@ -239,7 +239,8 @@ def scan_reachable_history(root: Path = PROJECT_ROOT) -> list[Violation]:
             commit,
             cwd=root,
         ).decode("utf-8", errors="replace")
-        for email in identities.split("\0"):
+        for raw_email in identities.split("\0"):
+            email = raw_email.strip()
             if email and not _GITHUB_NOREPLY_EMAIL.fullmatch(email):
                 violations.append(
                     Violation(
