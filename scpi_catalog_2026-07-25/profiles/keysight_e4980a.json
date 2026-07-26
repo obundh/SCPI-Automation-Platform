@@ -1,0 +1,496 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "keysight_e4980a",
+  "manufacturer": "Keysight",
+  "model_family": "E4980A",
+  "models": [
+    "E4980A"
+  ],
+  "instrument_class": "lcr_meter",
+  "identification": {
+    "idn_patterns": [
+      "(Keysight Technologies|Agilent Technologies),E4980A,.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "qcodes_keysight_e4980a"
+  ],
+  "verification": {
+    "status": "project_driver_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "펌웨어 A.02.10 이상 및 옵션 001 여부에 따라 기능·범위 차이.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "bias.dc.state",
+      "arguments": {
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "lcr.frequency",
+      "label_ko": "측정 주파수",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": ":FREQuency {value}"
+        },
+        "query": {
+          "scpi": ":FREQuency?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 20,
+          "maximum": 2000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "lcr.measurement.function",
+      "label_ko": "임피던스 측정 조합",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": ":FUNCtion:IMPedance {function}"
+        },
+        "query": {
+          "scpi": ":FUNCtion:IMPedance?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "function",
+          "type": "enum",
+          "choices": [
+            "CPD",
+            "CPQ",
+            "CPG",
+            "CPRP",
+            "CSD",
+            "CSQ",
+            "CSRS",
+            "LPD",
+            "LPQ",
+            "LPG",
+            "LPRP",
+            "LSD",
+            "LSQ",
+            "LSRS",
+            "LSRD",
+            "RX",
+            "ZTD",
+            "ZTR",
+            "GB",
+            "YTD",
+            "YTR",
+            "VDID"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "lcr.impedance.range",
+      "label_ko": "임피던스 측정 범위",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": ":FUNCtion:IMPedance:RANGe {value}"
+        },
+        "query": {
+          "scpi": ":FUNCtion:IMPedance:RANGe?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Ohm"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "Ohm"
+    },
+    {
+      "capability_id": "lcr.impedance.autorange",
+      "label_ko": "임피던스 자동 범위",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": ":FUNCtion:IMPedance:RANGe:AUTO {state}"
+        },
+        "query": {
+          "scpi": ":FUNCtion:IMPedance:RANGe:AUTO?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "lcr.signal.voltage_level",
+      "label_ko": "측정 신호 전압",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": ":VOLTage:LEVel {value}"
+        },
+        "query": {
+          "scpi": ":VOLTage:LEVel?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "V",
+      "note_ko": "옵션 001 여부에 따라 0~2 V 또는 0~20 V."
+    },
+    {
+      "capability_id": "lcr.signal.current_level",
+      "label_ko": "측정 신호 전류",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": ":CURRent:LEVel {value}"
+        },
+        "query": {
+          "scpi": ":CURRent:LEVel?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A"
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "A",
+      "note_ko": "옵션 001 여부에 따라 0~20 mA 또는 0~100 mA."
+    },
+    {
+      "capability_id": "bias.dc.state",
+      "label_ko": "DC Bias ON/OFF",
+      "category": "bias",
+      "operations": {
+        "set": {
+          "scpi": ":BIAS:STATe {state}"
+        },
+        "query": {
+          "scpi": ":BIAS:STATe?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "bias.dc.voltage",
+      "label_ko": "DC Bias 전압",
+      "category": "bias",
+      "operations": {
+        "set": {
+          "scpi": ":BIAS:VOLTage:LEVel {value}"
+        },
+        "query": {
+          "scpi": ":BIAS:VOLTage:LEVel?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float_or_enum",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "high",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "V",
+      "note_ko": "옵션 001이면 -40~40 V, 미장착이면 허용값 0/1.5/2 V."
+    },
+    {
+      "capability_id": "correction.open.execute",
+      "label_ko": "OPEN 보정 실행",
+      "category": "correction",
+      "operations": {
+        "execute": {
+          "scpi": ":CORRection:OPEN"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "correction.open.state",
+      "label_ko": "OPEN 보정 적용",
+      "category": "correction",
+      "operations": {
+        "set": {
+          "scpi": ":CORRection:OPEN:STATe {state}"
+        },
+        "query": {
+          "scpi": ":CORRection:OPEN:STATe?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "correction.short.execute",
+      "label_ko": "SHORT 보정 실행",
+      "category": "correction",
+      "operations": {
+        "execute": {
+          "scpi": ":CORRection:SHORt"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "correction.short.state",
+      "label_ko": "SHORT 보정 적용",
+      "category": "correction",
+      "operations": {
+        "set": {
+          "scpi": ":CORRection:SHORt:STATe {state}"
+        },
+        "query": {
+          "scpi": ":CORRection:SHORt:STATe?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "measurement.impedance.corrected",
+      "label_ko": "보정된 R/X 읽기",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": ":FETCH:IMPedance:CORRected?",
+          "response_type": "float_pair"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ],
+      "unit": "Ohm"
+    },
+    {
+      "capability_id": "measurement.impedance.formatted",
+      "label_ko": "선택 함수 결과 읽기",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": ":FETCH:IMPedance:FORMatted?",
+          "response_type": "float_triplet"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "measurement.aperture",
+      "label_ko": "측정 시간·평균 횟수",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": ":APERture {mode},{averaging_rate}"
+        },
+        "query": {
+          "scpi": ":APERture?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "SHOR",
+            "MED",
+            "LONG"
+          ]
+        },
+        {
+          "name": "averaging_rate",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "system.error.query",
+      "label_ko": "오류 큐 읽기",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": ":SYSTem:ERRor?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "system.clear_status",
+      "label_ko": "상태 초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*CLS"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    },
+    {
+      "capability_id": "system.reset",
+      "label_ko": "초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*RST"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_e4980a"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,882 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "keysight_33500_series",
+  "manufacturer": "Keysight / Agilent",
+  "model_family": "33500 Series",
+  "models": [
+    "33500 Series waveform generators"
+  ],
+  "instrument_class": "function_arbitrary_waveform_generator",
+  "identification": {
+    "idn_patterns": [
+      "(Keysight Technologies|Agilent Technologies),335.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "pymeasure_agilent_33500"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "모델별 채널 수·최대 주파수·진폭·ARB 메모리 차이가 있으므로 동적 한계 조회가 필요.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "output.state",
+      "arguments": {
+        "channel": 1,
+        "state": false
+      }
+    },
+    {
+      "capability_id": "output.state",
+      "arguments": {
+        "channel": 2,
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "waveform.shape",
+      "label_ko": "파형 종류",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC {shape}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "shape",
+          "type": "enum",
+          "choices": [
+            "SIN",
+            "SQU",
+            "TRI",
+            "RAMP",
+            "PULS",
+            "PRBS",
+            "NOIS",
+            "ARB",
+            "DC"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.frequency",
+      "label_ko": "파형 주파수",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FREQ {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FREQ?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1e-06,
+          "maximum": 120000000.0
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "Hz",
+      "scope": "channel",
+      "note_ko": "모델·파형에 따라 실제 상한이 동적."
+    },
+    {
+      "capability_id": "waveform.amplitude",
+      "label_ko": "출력 진폭",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:VOLT {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:VOLT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 0.01,
+          "maximum": 10
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.amplitude.unit",
+      "label_ko": "진폭 단위",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:VOLT:UNIT {unit}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:VOLT:UNIT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "unit",
+          "type": "enum",
+          "choices": [
+            "VPP",
+            "VRMS",
+            "DBM"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.offset",
+      "label_ko": "DC Offset",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:VOLT:OFFS {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:VOLT:OFFS?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": -4.995,
+          "maximum": 4.995
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.voltage.high",
+      "label_ko": "상한 전압",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:VOLT:HIGH {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:VOLT:HIGH?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": -4.999,
+          "maximum": 5
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.voltage.low",
+      "label_ko": "하한 전압",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:VOLT:LOW {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:VOLT:LOW?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": -5,
+          "maximum": 4.999
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.phase",
+      "label_ko": "파형 위상",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:PHAS {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:PHAS?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "deg",
+          "minimum": -360,
+          "maximum": 360
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "deg",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.square.duty_cycle",
+      "label_ko": "구형파 듀티비",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:SQU:DCYC {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:SQU:DCYC?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "%",
+          "minimum": 0.01,
+          "maximum": 99.98
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "%",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.pulse.period",
+      "label_ko": "펄스 주기",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:PULS:PER {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:PULS:PER?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 3.3e-08,
+          "maximum": 1000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "s",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.pulse.width",
+      "label_ko": "펄스 폭",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:PULS:WIDT {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:PULS:WIDT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 1.6e-08,
+          "maximum": 1000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "s",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.pulse.duty_cycle",
+      "label_ko": "펄스 듀티비",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:PULS:DCYC {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:PULS:DCYC?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "%",
+          "minimum": 0,
+          "maximum": 100
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "%",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "waveform.pulse.transition",
+      "label_ko": "펄스 상승·하강 시간",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:PULS:TRAN:BOTH {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:PULS:TRAN?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 8.4e-09,
+          "maximum": 1e-06
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "s",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "output.state",
+      "label_ko": "채널 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTP{channel} {state}"
+        },
+        "query": {
+          "scpi": "OUTP{channel}?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "output.load",
+      "label_ko": "예상 부하 임피던스",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTP{channel}:LOAD {value}"
+        },
+        "query": {
+          "scpi": "OUTP{channel}:LOAD?",
+          "response_type": "float_or_string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float_or_string",
+          "unit": "Ohm"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "Ohm",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "burst.state",
+      "label_ko": "Burst ON/OFF",
+      "category": "burst",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:BURS:STAT {state}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:BURS:STAT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "burst.mode",
+      "label_ko": "Burst 모드",
+      "category": "burst",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:BURS:MODE {mode}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:BURS:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "TRIG",
+            "TRIGGERED",
+            "GAT",
+            "GATED"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "burst.period",
+      "label_ko": "Burst 주기",
+      "category": "burst",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:BURS:INT:PER {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:BURS:INT:PER?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 1e-06,
+          "maximum": 8000
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "s",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "burst.cycles",
+      "label_ko": "Burst 사이클 수",
+      "category": "burst",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:BURS:NCYC {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:BURS:NCYC?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "arb.waveform.select",
+      "label_ko": "ARB 파형 선택",
+      "category": "arb",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:ARB {name}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:ARB?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "arb.advance.mode",
+      "label_ko": "ARB 진행 방식",
+      "category": "arb",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:ARB:ADV {mode}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:ARB:ADV?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "TRIG",
+            "TRIGGER",
+            "SRAT",
+            "SRATE"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "arb.filter",
+      "label_ko": "ARB 필터",
+      "category": "arb",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:ARB:FILT {mode}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:ARB:FILT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "NORM",
+            "NORMAL",
+            "STEP",
+            "OFF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "arb.sample_rate",
+      "label_ko": "ARB 샘플레이트",
+      "category": "arb",
+      "operations": {
+        "set": {
+          "scpi": "SOUR{channel}:FUNC:ARB:SRAT {value}"
+        },
+        "query": {
+          "scpi": "SOUR{channel}:FUNC:ARB:SRAT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Sa/s",
+          "minimum": 1e-06,
+          "maximum": 250000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_agilent_33500"
+      ],
+      "unit": "Sa/s",
+      "scope": "channel"
+    }
+  ]
+}

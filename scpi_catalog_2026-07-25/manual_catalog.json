@@ -1,0 +1,215 @@
+[
+  {
+    "manual_id": "kikusui_pmx_a_interface",
+    "manufacturer": "Kikusui",
+    "title": "PMX-A Communication Interface Manual",
+    "document_reference": null,
+    "applies_to": [
+      "PMX-A series",
+      "PMX35-3A"
+    ],
+    "official_url": "https://global.kikusui.co.jp/spec/pmx-a_interface/",
+    "version": null,
+    "firmware": null,
+    "publication_date": null,
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rs_smb100a_operating",
+    "manufacturer": "Rohde & Schwarz",
+    "title": "R&S SMB100A Operating Manual",
+    "document_reference": null,
+    "applies_to": [
+      "SMB100A"
+    ],
+    "official_url": "https://www.rohde-schwarz.com/lat/manual/manual-de-usuario-del-generador-de-senales-rf-y-microondas-rs-smb100a_78701-29347.html",
+    "version": "23",
+    "firmware": "5.00.116.xx",
+    "publication_date": "2022-06-01",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rs_fsl_operating",
+    "manufacturer": "Rohde & Schwarz",
+    "title": "R&S FSL Operating Manual",
+    "document_reference": null,
+    "applies_to": [
+      "FSL series"
+    ],
+    "official_url": "https://www.rohde-schwarz.com/jp/manual/fsl/",
+    "version": null,
+    "firmware": null,
+    "publication_date": "2009-07-02",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rs_fsw_user",
+    "manufacturer": "Rohde & Schwarz",
+    "title": "R&S FSW User Manual",
+    "document_reference": null,
+    "applies_to": [
+      "FSW series"
+    ],
+    "official_url": "https://www.rohde-schwarz.com/fr/manual/fsw/",
+    "version": "56",
+    "firmware": "6.30",
+    "publication_date": "2025-08-12",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rs_fsv_user",
+    "manufacturer": "Rohde & Schwarz",
+    "title": "R&S FSVA and R&S FSV User Manual",
+    "document_reference": null,
+    "applies_to": [
+      "FSV series",
+      "FSVA series"
+    ],
+    "official_url": "https://www.rohde-schwarz.com/us/manual/fsv/",
+    "version": null,
+    "firmware": null,
+    "publication_date": "2019-08-27",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "keysight_e36300_programming",
+    "manufacturer": "Keysight",
+    "title": "E36300 Series Programming Guide",
+    "document_reference": "9018-04577",
+    "applies_to": [
+      "E36311A",
+      "E36312A",
+      "E36313A"
+    ],
+    "official_url": "https://www.keysight.com/us/en/support/E36312A/80w-triple-output-power-supply-6v-5a-2x-25v-1a.html",
+    "version": null,
+    "firmware": null,
+    "publication_date": "2025-08-07",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "keysight_33500_users",
+    "manufacturer": "Keysight",
+    "title": "Keysight 33500 Series User's Guide",
+    "document_reference": "9018-03290",
+    "applies_to": [
+      "33500 Series"
+    ],
+    "official_url": "https://www.keysight.com/us/en/support/33522B/waveform-generator-30-mhz-2-channel-arb.html",
+    "version": null,
+    "firmware": null,
+    "publication_date": null,
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "keysight_truevolt_support",
+    "manufacturer": "Keysight",
+    "title": "Truevolt Series DMM Operating and Service Guide / Support",
+    "document_reference": null,
+    "applies_to": [
+      "34460A",
+      "34461A",
+      "34465A",
+      "34470A"
+    ],
+    "official_url": "https://www.keysight.com/ie/en/support/34465A/digital-multimeter-6-5-digit-truevolt-dmm.html",
+    "version": null,
+    "firmware": "모델별",
+    "publication_date": null,
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rigol_ds1000z_programming",
+    "manufacturer": "RIGOL",
+    "title": "DS1000Z Programming Guide",
+    "document_reference": null,
+    "applies_to": [
+      "DS1000Z series"
+    ],
+    "official_url": "https://www.rigolna.com/support/downloads/",
+    "version": "V1.0",
+    "firmware": null,
+    "publication_date": "2021-10-26",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "keysight_e4980a_users",
+    "manufacturer": "Keysight",
+    "title": "E4980A Precision LCR Meter User's Guide",
+    "document_reference": "E4980-90090 / 9018-06163",
+    "applies_to": [
+      "E4980A"
+    ],
+    "official_url": "https://www.keysight.com/us/en/support/E4980A/precision-lcr-meter-20-hz-2-mhz.html",
+    "version": null,
+    "firmware": "A.03.xx",
+    "publication_date": "2013-05-01",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "keysight_n52xxa_help",
+    "manufacturer": "Keysight",
+    "title": "N52xxA PNA Series Help (User's Guide + Programming Guide)",
+    "document_reference": null,
+    "applies_to": [
+      "N52xxA PNA/PNA-X",
+      "N5245A"
+    ],
+    "official_url": "https://www.keysight.com/es/en/lib/resources/help-files/n52xxa-pna-series-help-file.html",
+    "version": "펌웨어 버전별",
+    "firmware": "펌웨어 버전 일치 필요",
+    "publication_date": null,
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  },
+  {
+    "manual_id": "rs_hmp_user",
+    "manufacturer": "Rohde & Schwarz",
+    "title": "R&S HMP2000 / HMP4000 User Manual",
+    "document_reference": null,
+    "applies_to": [
+      "HMP2000 series",
+      "HMP4000 series"
+    ],
+    "official_url": "https://www.rohde-schwarz.com/nl/manual/rs-hmp2000-rs-hmp4000-user-manual_78701-524912.html",
+    "version": "05",
+    "firmware": "2.71 and later",
+    "publication_date": "2025-12-01",
+    "remote_commands": true,
+    "verified_on": "2026-07-25",
+    "notes_ko": "공식 문서의 제목·버전·적용 모델·링크만 기록한 서지 항목.",
+    "redistribution_policy": "문서 원문, 명령, 표, 페이지 매핑은 저장소에 포함하지 않는다. 공식 링크 사용은 재배포 허가를 뜻하지 않는다."
+  }
+]

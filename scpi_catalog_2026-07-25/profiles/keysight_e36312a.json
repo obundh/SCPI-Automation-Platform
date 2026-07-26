@@ -1,0 +1,256 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "keysight_e36312a",
+  "manufacturer": "Keysight",
+  "model_family": "E36300 Series",
+  "models": [
+    "E36312A"
+  ],
+  "instrument_class": "dc_power_supply",
+  "identification": {
+    "idn_patterns": [
+      "Keysight Technologies,E36312A,.*",
+      "Agilent Technologies,E36312A,.*"
+    ]
+  },
+  "interfaces": [
+    "LAN",
+    "USB",
+    "GPIB(option)"
+  ],
+  "source_ids": [
+    "pymeasure_keysight_e36312a"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "채널별 한계값을 동적으로 적용해야 함. 공식 Programming Guide와 명령 페이지 대조 전 high-risk 자동 실행 금지.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "channel.output.state",
+      "arguments": {
+        "channel": 1,
+        "state": false
+      }
+    },
+    {
+      "capability_id": "channel.output.state",
+      "arguments": {
+        "channel": 2,
+        "state": false
+      }
+    },
+    {
+      "capability_id": "channel.output.state",
+      "arguments": {
+        "channel": 3,
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "channel.voltage.setpoint",
+      "label_ko": "채널 출력 전압",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "VOLT {value}, (@{channel})"
+        },
+        "query": {
+          "scpi": "VOLT? (@{channel})",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 0,
+          "maximum": 25
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_keysight_e36312a"
+      ],
+      "unit": "V",
+      "scope": "channel",
+      "note_ko": "채널 1: 0~6 V, 채널 2·3: 0~25 V."
+    },
+    {
+      "capability_id": "channel.current.limit",
+      "label_ko": "채널 전류 한계",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "CURR {value}, (@{channel})"
+        },
+        "query": {
+          "scpi": "CURR? (@{channel})",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A",
+          "minimum": 0,
+          "maximum": 5
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_keysight_e36312a"
+      ],
+      "unit": "A",
+      "scope": "channel",
+      "note_ko": "채널 1: 0~5 A, 채널 2·3: 0~1 A."
+    },
+    {
+      "capability_id": "channel.measure.voltage",
+      "label_ko": "채널 실제 전압",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEASure:VOLTage? (@{channel})",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_keysight_e36312a"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.measure.current",
+      "label_ko": "채널 실제 전류",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEAS:CURRent? (@{channel})",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_keysight_e36312a"
+      ],
+      "unit": "A",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.output.state",
+      "label_ko": "채널 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTPut {state}, (@{channel})"
+        },
+        "query": {
+          "scpi": "OUTPut? (@{channel})",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_keysight_e36312a"
+      ],
+      "scope": "channel",
+      "preconditions": [
+        "채널별 한계 및 DUT 배선 확인"
+      ]
+    }
+  ],
+  "model_limits": {
+    "E36312A": {
+      "1": {
+        "voltage_V": [
+          0,
+          6
+        ],
+        "current_A": [
+          0,
+          5
+        ]
+      },
+      "2": {
+        "voltage_V": [
+          0,
+          25
+        ],
+        "current_A": [
+          0,
+          1
+        ]
+      },
+      "3": {
+        "voltage_V": [
+          0,
+          25
+        ],
+        "current_A": [
+          0,
+          1
+        ]
+      }
+    }
+  }
+}

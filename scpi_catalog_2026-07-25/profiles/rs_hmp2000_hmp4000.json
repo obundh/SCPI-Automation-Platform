@@ -1,0 +1,558 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "rs_hmp2000_hmp4000",
+  "manufacturer": "Rohde & Schwarz",
+  "model_family": "HMP2000/HMP4000",
+  "models": [
+    "HMP2020",
+    "HMP2030",
+    "HMP4040",
+    "HMP2000 series",
+    "HMP4000 series"
+  ],
+  "instrument_class": "dc_power_supply",
+  "identification": {
+    "idn_patterns": [
+      "Rohde&Schwarz,HMP.*",
+      "HAMEG,HMP.*"
+    ]
+  },
+  "interfaces": [
+    "USB",
+    "RS-232",
+    "LAN",
+    "GPIB(option)"
+  ],
+  "source_ids": [
+    "pymeasure_rs_hmp"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "상태형 명령: 먼저 INST:NSEL로 채널을 선택한 뒤 설정. 모델별 채널 수·전압·전류 한계가 다름.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "output.master_state",
+      "arguments": {
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "system.beep",
+      "label_ko": "비프음",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "SYST:BEEP"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ]
+    },
+    {
+      "capability_id": "system.control_method",
+      "label_ko": "로컬·리모트 모드",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "SYST:{mode}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "LOC",
+            "REM",
+            "MIX",
+            "RWL"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ]
+    },
+    {
+      "capability_id": "system.scpi_version",
+      "label_ko": "SCPI 버전",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "SYST:VERS?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ]
+    },
+    {
+      "capability_id": "channel.select",
+      "label_ko": "채널 선택",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": "INST:NSEL {channel}"
+        },
+        "query": {
+          "scpi": "INST:NSEL?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "source.voltage",
+      "label_ko": "선택 채널 전압",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "VOLT {value}"
+        },
+        "query": {
+          "scpi": "VOLT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "V",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.voltage.step",
+      "label_ko": "전압 Step",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "VOLT:STEP {value}"
+        },
+        "query": {
+          "scpi": "VOLT:STEP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 0,
+          "maximum": 32.05
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "V",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.voltage.step_up",
+      "label_ko": "전압 한 Step 증가",
+      "category": "source",
+      "operations": {
+        "execute": {
+          "scpi": "VOLT UP"
+        }
+      },
+      "parameters": [],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.voltage.step_down",
+      "label_ko": "전압 한 Step 감소",
+      "category": "source",
+      "operations": {
+        "execute": {
+          "scpi": "VOLT DOWN"
+        }
+      },
+      "parameters": [],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.current",
+      "label_ko": "선택 채널 전류 한계",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "CURR {value}"
+        },
+        "query": {
+          "scpi": "CURR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A"
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "A",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.current.step",
+      "label_ko": "전류 Step",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "CURR:STEP {value}"
+        },
+        "query": {
+          "scpi": "CURR:STEP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "A",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "source.apply",
+      "label_ko": "전압·전류 동시 설정",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "APPL {voltage}, {current}"
+        },
+        "query": {
+          "scpi": "APPL?",
+          "response_type": "float_pair"
+        }
+      },
+      "parameters": [
+        {
+          "name": "voltage",
+          "type": "float",
+          "unit": "V"
+        },
+        {
+          "name": "current",
+          "type": "float",
+          "unit": "A"
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "channel.active",
+      "label_ko": "선택 채널 활성화",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTPUT:SEL {state}"
+        },
+        "query": {
+          "scpi": "OUTP:SEL?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "output.master_state",
+      "label_ko": "마스터 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTP:GEN {state}"
+        },
+        "query": {
+          "scpi": "OUTP:GEN?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ]
+    },
+    {
+      "capability_id": "measurement.voltage",
+      "label_ko": "선택 채널 실제 전압",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEAS:VOLT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "V",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "measurement.current",
+      "label_ko": "선택 채널 실제 전류",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEAS:CURR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "unit": "A",
+      "scope": "selected_channel"
+    },
+    {
+      "capability_id": "sequence.clear",
+      "label_ko": "ARB 시퀀스 삭제",
+      "category": "sequence",
+      "operations": {
+        "execute": {
+          "scpi": "ARB:CLEAR {channel}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "sequence.data",
+      "label_ko": "ARB 시퀀스 데이터",
+      "category": "sequence",
+      "operations": {
+        "set": {
+          "scpi": "ARB:DATA {triplets}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "triplets",
+          "type": "voltage_current_time_triplets"
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "note_ko": "전압·전류·체류시간 3개 단위 반복, 최대 128 포인트; 체류 0.06~10 s."
+    },
+    {
+      "capability_id": "sequence.repetitions",
+      "label_ko": "ARB 반복 횟수",
+      "category": "sequence",
+      "operations": {
+        "set": {
+          "scpi": "ARB:REP {value}"
+        },
+        "query": {
+          "scpi": "ARB:REP?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "note_ko": "0은 무한 반복이므로 기본 금지 권장."
+    },
+    {
+      "capability_id": "sequence.start",
+      "label_ko": "ARB 시퀀스 시작",
+      "category": "sequence",
+      "operations": {
+        "execute": {
+          "scpi": "ARB:START {channel}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "sequence.stop",
+      "label_ko": "ARB 시퀀스 정지",
+      "category": "sequence",
+      "operations": {
+        "execute": {
+          "scpi": "ARB:STOP {channel}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "sequence.transfer",
+      "label_ko": "ARB 시퀀스 전송",
+      "category": "sequence",
+      "operations": {
+        "execute": {
+          "scpi": "ARB:TRAN {channel}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_hmp"
+      ],
+      "scope": "channel"
+    }
+  ]
+}

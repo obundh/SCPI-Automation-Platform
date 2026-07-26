@@ -1,0 +1,439 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "rs_smb100a",
+  "manufacturer": "Rohde & Schwarz",
+  "model_family": "SMB100A",
+  "models": [
+    "SMB100A"
+  ],
+  "instrument_class": "rf_signal_generator",
+  "identification": {
+    "idn_patterns": [
+      "Rohde&Schwarz,SMB100A,.*",
+      "Rohde-Schwarz,SMB100A,.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "qcodes_contrib_smb100a"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "QCoDeS contrib beta 드라이버 기반. 실장비·펌웨어별 확인 전 high-risk 명령 비활성화 권장.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "rf.output.state",
+      "arguments": {
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "system.reset",
+      "label_ko": "초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*RST"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "system.self_test",
+      "label_ko": "자기진단",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "*TST?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "source.frequency",
+      "label_ko": "RF 주파수",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:FREQ {value}"
+        },
+        "query": {
+          "scpi": "SOUR:FREQ?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 100000.0,
+          "maximum": 20000000000.0
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "Hz",
+      "note_ko": "드라이버 범위이며 주파수 옵션별 실제 상한 확인 필요."
+    },
+    {
+      "capability_id": "source.phase",
+      "label_ko": "RF 위상",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:PHAS {value}"
+        },
+        "query": {
+          "scpi": "SOUR:PHAS?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "deg",
+          "minimum": 0,
+          "maximum": 360
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "deg"
+    },
+    {
+      "capability_id": "source.power",
+      "label_ko": "RF 출력 레벨",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:POW {value}"
+        },
+        "query": {
+          "scpi": "SOUR:POW?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dBm",
+          "minimum": -120,
+          "maximum": 30
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "dBm",
+      "note_ko": "주파수·옵션별 실제 출력 범위 확인 필요."
+    },
+    {
+      "capability_id": "rf.output.state",
+      "label_ko": "RF 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": ":OUTP:STAT {state}"
+        },
+        "query": {
+          "scpi": ":OUTP:STAT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "preconditions": [
+        "주파수·레벨·배선·DUT 허용치 검토"
+      ]
+    },
+    {
+      "capability_id": "modulation.pulse.state",
+      "label_ko": "펄스 변조 ON/OFF",
+      "category": "modulation",
+      "operations": {
+        "set": {
+          "scpi": ":SOUR:PULM:STAT {state}"
+        },
+        "query": {
+          "scpi": ":SOUR:PULM:STAT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "sweep.frequency.start",
+      "label_ko": "스윕 시작 주파수",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:START {value} Hz"
+        },
+        "query": {
+          "scpi": "FREQ:START?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 100000.0,
+          "maximum": 20000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "sweep.frequency.stop",
+      "label_ko": "스윕 종료 주파수",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:STOP {value} Hz"
+        },
+        "query": {
+          "scpi": "FREQ:STOP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 100000.0,
+          "maximum": 20000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "sweep.frequency.step",
+      "label_ko": "스윕 주파수 간격",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SWE:STEP {value} Hz"
+        },
+        "query": {
+          "scpi": "SWE:STEP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 100000.0,
+          "maximum": 20000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "sweep.points",
+      "label_ko": "스윕 포인트 수",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SWE:POIN {value}"
+        },
+        "query": {
+          "scpi": "SWE:POIN?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer",
+          "minimum": 2
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "sweep.dwell",
+      "label_ko": "스윕 포인트 체류시간",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SWE:DWEL {value} s"
+        },
+        "query": {
+          "scpi": "SWE:DWEL?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 0.005,
+          "maximum": 1000
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "source.frequency.mode",
+      "label_ko": "주파수 모드",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:FREQ:MODE {mode}"
+        },
+        "query": {
+          "scpi": "SOUR:FREQ:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "CW",
+            "SWE"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "sweep.trigger_source",
+      "label_ko": "스윕 트리거 소스",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIG:FSW:SOUR {source}"
+        },
+        "query": {
+          "scpi": "TRIG:FSW:SOUR?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "enum",
+          "choices": [
+            "AUTO",
+            "SING"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    },
+    {
+      "capability_id": "trigger.force",
+      "label_ko": "버스 트리거",
+      "category": "trigger",
+      "operations": {
+        "execute": {
+          "scpi": "*TRG"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_smb100a"
+      ]
+    }
+  ]
+}

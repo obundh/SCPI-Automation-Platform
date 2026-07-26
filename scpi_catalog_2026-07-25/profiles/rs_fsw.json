@@ -1,0 +1,732 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "rs_fsw",
+  "manufacturer": "Rohde & Schwarz",
+  "model_family": "FSW",
+  "models": [
+    "FSW series"
+  ],
+  "instrument_class": "signal_and_spectrum_analyzer",
+  "identification": {
+    "idn_patterns": [
+      "Rohde&Schwarz,FSW.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "pymeasure_rs_fsseries"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "베이스 SANALYZER 중심. 옵션 애플리케이션은 매뉴얼·프로파일을 별도로 분리해야 함.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [],
+  "capabilities": [
+    {
+      "capability_id": "analyzer.frequency.span",
+      "label_ko": "주파수 Span",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:SPAN {value}"
+        },
+        "query": {
+          "scpi": "FREQ:SPAN?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.center",
+      "label_ko": "중심 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:CENT {value}"
+        },
+        "query": {
+          "scpi": "FREQ:CENT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.start",
+      "label_ko": "시작 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:STAR {value}"
+        },
+        "query": {
+          "scpi": "FREQ:STAR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.stop",
+      "label_ko": "종료 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "FREQ:STOP {value}"
+        },
+        "query": {
+          "scpi": "FREQ:STOP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.input.attenuation",
+      "label_ko": "입력 감쇠",
+      "category": "input",
+      "operations": {
+        "set": {
+          "scpi": "INP:ATT {value}"
+        },
+        "query": {
+          "scpi": "INP:ATT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dB"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "dB"
+    },
+    {
+      "capability_id": "analyzer.rbw",
+      "label_ko": "분해능 대역폭 RBW",
+      "category": "bandwidth",
+      "operations": {
+        "set": {
+          "scpi": "BAND:RES {value}"
+        },
+        "query": {
+          "scpi": "BAND:RES?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number_or_auto",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz",
+      "alternatives": [
+        {
+          "condition": "AUTO",
+          "scpi": "BAND:RES:AUTO ON"
+        }
+      ]
+    },
+    {
+      "capability_id": "analyzer.vbw",
+      "label_ko": "비디오 대역폭 VBW",
+      "category": "bandwidth",
+      "operations": {
+        "set": {
+          "scpi": "BAND:VID {value}"
+        },
+        "query": {
+          "scpi": "BAND:VID?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number_or_auto",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz",
+      "alternatives": [
+        {
+          "condition": "AUTO",
+          "scpi": "BAND:VID:AUTO ON"
+        }
+      ]
+    },
+    {
+      "capability_id": "sweep.time",
+      "label_ko": "스윕 시간",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SWE:TIME {value}"
+        },
+        "query": {
+          "scpi": "SWE:TIME?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number_or_auto",
+          "unit": "s"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "s",
+      "alternatives": [
+        {
+          "condition": "AUTO",
+          "scpi": "SWE:TIME:AUTO ON"
+        }
+      ]
+    },
+    {
+      "capability_id": "sweep.continuous",
+      "label_ko": "연속 스윕",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "INIT:CONT {state}"
+        },
+        "query": {
+          "scpi": "INIT:CONT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "sweep.single",
+      "label_ko": "단일 스윕 및 완료 대기",
+      "category": "sweep",
+      "operations": {
+        "execute": {
+          "scpi": "INIT; *WAI"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "sweep.continue_single",
+      "label_ko": "단일 스윕 계속",
+      "category": "sweep",
+      "operations": {
+        "execute": {
+          "scpi": "INIT:CONM; *WAI"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "trace.mode",
+      "label_ko": "트레이스 모드",
+      "category": "trace",
+      "operations": {
+        "set": {
+          "scpi": "DISP:TRAC:MODE {mode}"
+        },
+        "query": {
+          "scpi": "DISP:TRAC:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "WRIT",
+            "MAXH",
+            "MINH",
+            "AVER",
+            "VIEW"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "marker.state",
+      "label_ko": "마커 ON/OFF",
+      "category": "marker",
+      "operations": {
+        "set": {
+          "scpi": "CALC:MARK{marker}:STAT {state}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "ON",
+            "false": "OFF"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "scope": "marker"
+    },
+    {
+      "capability_id": "marker.frequency",
+      "label_ko": "마커 주파수",
+      "category": "marker",
+      "operations": {
+        "set": {
+          "scpi": "CALC:MARK{marker}:X {value}"
+        },
+        "query": {
+          "scpi": "CALC:MARK{marker}:X?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "Hz",
+      "scope": "marker"
+    },
+    {
+      "capability_id": "marker.amplitude",
+      "label_ko": "마커 레벨",
+      "category": "marker",
+      "operations": {
+        "query": {
+          "scpi": "CALC:MARK{marker}:Y?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "dBm",
+      "scope": "marker"
+    },
+    {
+      "capability_id": "marker.peak_excursion",
+      "label_ko": "Peak excursion",
+      "category": "marker",
+      "operations": {
+        "set": {
+          "scpi": "CALC:MARK{marker}:PEXC {value}"
+        },
+        "query": {
+          "scpi": "CALC:MARK{marker}:PEXC?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dB"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "unit": "dB",
+      "scope": "marker"
+    },
+    {
+      "capability_id": "marker.assign_trace",
+      "label_ko": "마커-트레이스 연결",
+      "category": "marker",
+      "operations": {
+        "execute": {
+          "scpi": "CALC:MARK{marker}:TRAC {trace}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "trace",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "scope": "marker_trace"
+    },
+    {
+      "capability_id": "marker.peak_search",
+      "label_ko": "최대 Peak 탐색",
+      "category": "marker",
+      "operations": {
+        "execute": {
+          "scpi": "CALC:MARK{marker}:MAX"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "scope": "marker"
+    },
+    {
+      "capability_id": "marker.next_peak",
+      "label_ko": "다음 Peak 탐색",
+      "category": "marker",
+      "operations": {
+        "execute": {
+          "scpi": "CALC:MARK{marker}:MAX:{direction}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "marker",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "choices": [
+            "LEFT",
+            "RIGHT"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "scope": "marker"
+    },
+    {
+      "capability_id": "trace.read",
+      "label_ko": "활성 트레이스 데이터 읽기",
+      "category": "trace",
+      "operations": {
+        "query": {
+          "scpi": "TRAC{trace}? TRACE{trace}",
+          "response_type": "float_array"
+        }
+      },
+      "parameters": [
+        {
+          "name": "trace",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ],
+      "scope": "trace"
+    },
+    {
+      "capability_id": "analyzer.auto.all",
+      "label_ko": "전체 자동 조정",
+      "category": "analyzer",
+      "operations": {
+        "execute": {
+          "scpi": ":ADJ:ALL"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "analyzer.auto.frequency",
+      "label_ko": "중심주파수 자동 조정",
+      "category": "analyzer",
+      "operations": {
+        "execute": {
+          "scpi": ":ADJ:FREQ"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "analyzer.auto.level",
+      "label_ko": "기준레벨 자동 조정",
+      "category": "analyzer",
+      "operations": {
+        "execute": {
+          "scpi": ":ADJ:LEV"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "application.channel.list",
+      "label_ko": "측정 채널 목록",
+      "category": "application",
+      "operations": {
+        "query": {
+          "scpi": "INST:LIST?",
+          "response_type": "string_array"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "application.channel.create",
+      "label_ko": "측정 채널 생성",
+      "category": "application",
+      "operations": {
+        "execute": {
+          "scpi": "INST:CRE:NEW {channel_type}, '{channel_name}'"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel_type",
+          "type": "enum",
+          "choices": [
+            "PNOISE",
+            "SANALYZER"
+          ]
+        },
+        {
+          "name": "channel_name",
+          "type": "string"
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "application.channel.delete",
+      "label_ko": "측정 채널 삭제",
+      "category": "application",
+      "operations": {
+        "execute": {
+          "scpi": "INST:DEL '{channel_name}'"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel_name",
+          "type": "string"
+        }
+      ],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    },
+    {
+      "capability_id": "application.channel.select",
+      "label_ko": "측정 채널 선택",
+      "category": "application",
+      "operations": {
+        "execute": {
+          "scpi": "INST:SEL '{channel_name}'"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel_name",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "pymeasure_rs_fsseries"
+      ]
+    }
+  ]
+}

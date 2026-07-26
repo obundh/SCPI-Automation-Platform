@@ -1,0 +1,4 @@
+include LICENSE
+include THIRD_PARTY_NOTICES.md
+include LICENSE_AUDIT.md
+recursive-include scpi_catalog_2026-07-25 *.json *.csv *.md *.sqlite *.txt

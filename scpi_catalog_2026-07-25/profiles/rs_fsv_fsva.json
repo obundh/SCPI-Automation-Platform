@@ -1,0 +1,415 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "rs_fsv_fsva",
+  "manufacturer": "Rohde & Schwarz",
+  "model_family": "FSV/FSVA legacy (FW 3.60)",
+  "models": [
+    "FSV3",
+    "FSV7",
+    "FSV13",
+    "FSV30",
+    "FSV40",
+    "FSVA4",
+    "FSVA7",
+    "FSVA13",
+    "FSVA30",
+    "FSVA40"
+  ],
+  "instrument_class": "signal_and_spectrum_analyzer",
+  "identification": {
+    "idn_patterns": [
+      "Rohde&Schwarz,FSV(?:3|7|13|30|40),.*",
+      "Rohde&Schwarz,FSVA(?:4|7|13|30|40),.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "qcodes_contrib_rs_fsv3013"
+  ],
+  "verification": {
+    "status": "source_code_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "배포 프로파일은 MIT QCoDeS contrib FSV_3013 드라이버에서 확인한 기능만 포함한다. 제조사 매뉴얼에서만 확보했던 Trace·Marker 등 70개 바인딩은 제거했으며, 실장비에서 독립 검증한 로컬 확장으로만 다시 추가할 수 있다.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [],
+  "capabilities": [
+    {
+      "capability_id": "analyzer.frequency.center",
+      "label_ko": "중심 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": ":FREQ:CENT {value}"
+        },
+        "query": {
+          "scpi": ":FREQ:CENT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1000000.0,
+          "maximum": 44000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "Hz",
+      "note_ko": "드라이버 범위; 모델 옵션별 실제 상한 확인."
+    },
+    {
+      "capability_id": "analyzer.frequency.span",
+      "label_ko": "주파수 Span",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": ":FREQ:SPAN {value}"
+        },
+        "query": {
+          "scpi": ":FREQ:SPAN?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1000.0,
+          "maximum": 3200000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "display.reference_level",
+      "label_ko": "기준 레벨",
+      "category": "display",
+      "operations": {
+        "set": {
+          "scpi": ":DISP:WIND:TRAC:Y:SCAL:RLEV {value}"
+        },
+        "query": {
+          "scpi": ":DISP:WIND:TRAC:Y:SCAL:RLEV?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dBm",
+          "minimum": -120,
+          "maximum": 30
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "dBm"
+    },
+    {
+      "capability_id": "analyzer.rbw",
+      "label_ko": "RBW",
+      "category": "bandwidth",
+      "operations": {
+        "set": {
+          "scpi": ":BAND:RES {value}"
+        },
+        "query": {
+          "scpi": ":BAND:RES?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1,
+          "maximum": 10000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.vbw",
+      "label_ko": "VBW",
+      "category": "bandwidth",
+      "operations": {
+        "set": {
+          "scpi": ":BAND:VID {value}"
+        },
+        "query": {
+          "scpi": ":BAND:VID?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1,
+          "maximum": 10000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "sweep.time",
+      "label_ko": "스윕 시간",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": ":SWE:TIME {value}"
+        },
+        "query": {
+          "scpi": ":SWE:TIME?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s",
+          "minimum": 1e-06,
+          "maximum": 10000
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "sweep.continuous",
+      "label_ko": "연속 스윕",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": ":INIT:CONT {state}"
+        },
+        "query": {
+          "scpi": ":INIT:CONT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "enum",
+          "choices": [
+            "ON",
+            "OFF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ]
+    },
+    {
+      "capability_id": "trigger.source",
+      "label_ko": "트리거 소스",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:SOUR {source}"
+        },
+        "query": {
+          "scpi": ":TRIG:SOUR?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "enum",
+          "choices": [
+            "IMM",
+            "EXT",
+            "VID"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ]
+    },
+    {
+      "capability_id": "trigger.level",
+      "label_ko": "트리거 레벨",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:LEV {value}"
+        },
+        "query": {
+          "scpi": ":TRIG:LEV?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": -5,
+          "maximum": 5
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "correction.state",
+      "label_ko": "보정 ON/OFF",
+      "category": "correction",
+      "operations": {
+        "set": {
+          "scpi": ":CORR:STAT {state}"
+        },
+        "query": {
+          "scpi": ":CORR:STAT?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "enum",
+          "choices": [
+            "ON",
+            "OFF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ]
+    },
+    {
+      "capability_id": "input.impedance",
+      "label_ko": "입력 임피던스",
+      "category": "input",
+      "operations": {
+        "set": {
+          "scpi": ":INP:IMP {value}"
+        },
+        "query": {
+          "scpi": ":INP:IMP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "enum",
+          "unit": "Ohm",
+          "choices": [
+            50,
+            75
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "Ohm"
+    },
+    {
+      "capability_id": "measurement.initiate",
+      "label_ko": "측정 시작",
+      "category": "measurement",
+      "operations": {
+        "execute": {
+          "scpi": ":INIT:IMM"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ]
+    },
+    {
+      "capability_id": "measurement.acp_power.fetch",
+      "label_ko": "ACP 파워 결과 읽기",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": ":FETCH:POW:ACP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ],
+      "unit": "dBm"
+    },
+    {
+      "capability_id": "system.reset",
+      "label_ko": "초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*RST"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "source_code_confirmed",
+      "source_ids": [
+        "qcodes_contrib_rs_fsv3013"
+      ]
+    }
+  ]
+}

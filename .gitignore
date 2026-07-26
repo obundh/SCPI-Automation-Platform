@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+.release-venv/
+/build/
+/dist/
+*.egg-info/
+/sessions/
+/tmp/
+/results/
+*.log
+.env
+.env.*
+!.env.example
+local_extensions.json
+local_extensions.state
+
+# Manufacturer manuals and derived command indexes are private local inputs.
+scpi_catalog_*/manual_commands/
+local_manual_cache/
+manuals_private/

@@ -1,0 +1,683 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "keysight_n52xx_pna",
+  "manufacturer": "Keysight",
+  "model_family": "N52xx PNA/PNA-X",
+  "models": [
+    "N5245A",
+    "N52xxA PNA/PNA-X family"
+  ],
+  "instrument_class": "vector_network_analyzer",
+  "identification": {
+    "idn_patterns": [
+      "Keysight Technologies,N52.*",
+      "Agilent Technologies,N52.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "qcodes_keysight_n52xx",
+    "qcodes_keysight_n5245a"
+  ],
+  "verification": {
+    "status": "project_driver_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "트레이스 선택과 채널 상태 의존성이 큼. 사용 펌웨어와 Help 버전 일치 필요.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "rf.output.state",
+      "arguments": {
+        "state": false
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "rf.output.state",
+      "label_ko": "RF 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": ":OUTPut {state}"
+        },
+        "query": {
+          "scpi": ":OUTPut?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "source.power",
+      "label_ko": "전체 소스 파워",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:POW {value}"
+        },
+        "query": {
+          "scpi": "SOUR:POW?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dBm",
+          "minimum": -30,
+          "maximum": 13
+        }
+      ],
+      "risk_level": "high",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "dBm"
+    },
+    {
+      "capability_id": "source.port.power",
+      "label_ko": "포트별 소스 파워",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "SOUR:POW{port} {value}"
+        },
+        "query": {
+          "scpi": "SOUR:POW{port}?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "port",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "dBm",
+          "minimum": -30,
+          "maximum": 13
+        }
+      ],
+      "risk_level": "high",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "dBm",
+      "scope": "port"
+    },
+    {
+      "capability_id": "vna.if_bandwidth",
+      "label_ko": "IF 대역폭",
+      "category": "bandwidth",
+      "operations": {
+        "set": {
+          "scpi": "SENS:BAND {value}"
+        },
+        "query": {
+          "scpi": "SENS:BAND?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 1,
+          "maximum": 15000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "averaging.state",
+      "label_ko": "평균 ON/OFF",
+      "category": "averaging",
+      "operations": {
+        "set": {
+          "scpi": "SENS:AVER {state}"
+        },
+        "query": {
+          "scpi": "SENS:AVER?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "averaging.count",
+      "label_ko": "평균 횟수",
+      "category": "averaging",
+      "operations": {
+        "set": {
+          "scpi": "SENS:AVER:COUN {value}"
+        },
+        "query": {
+          "scpi": "SENS:AVER:COUN?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "analyzer.frequency.start",
+      "label_ko": "시작 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "SENS:FREQ:STAR {value}"
+        },
+        "query": {
+          "scpi": "SENS:FREQ:STAR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 10000000.0,
+          "maximum": 50000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.stop",
+      "label_ko": "종료 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "SENS:FREQ:STOP {value}"
+        },
+        "query": {
+          "scpi": "SENS:FREQ:STOP?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 10000000.0,
+          "maximum": 50000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.center",
+      "label_ko": "중심 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "SENS:FREQ:CENT {value}"
+        },
+        "query": {
+          "scpi": "SENS:FREQ:CENT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 10000000.0,
+          "maximum": 50000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.span",
+      "label_ko": "주파수 Span",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "SENS:FREQ:SPAN {value}"
+        },
+        "query": {
+          "scpi": "SENS:FREQ:SPAN?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 0,
+          "maximum": 50000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "analyzer.frequency.cw",
+      "label_ko": "CW 주파수",
+      "category": "frequency",
+      "operations": {
+        "set": {
+          "scpi": "SENS:FREQ:CW {value}"
+        },
+        "query": {
+          "scpi": "SENS:FREQ:CW?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "Hz",
+          "minimum": 10000000.0,
+          "maximum": 50000000000.0
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "sweep.points",
+      "label_ko": "스윕 포인트 수",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SENS:SWE:POIN {value}"
+        },
+        "query": {
+          "scpi": "SENS:SWE:POIN?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100001
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "sweep.time",
+      "label_ko": "스윕 시간",
+      "category": "sweep",
+      "operations": {
+        "query": {
+          "scpi": "SENS:SWE:TIME?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "sweep.mode",
+      "label_ko": "스윕 모드",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SENS:SWE:MODE {mode}"
+        },
+        "query": {
+          "scpi": "SENS:SWE:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "HOLD",
+            "CONT",
+            "GRO",
+            "SING"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "sweep.type",
+      "label_ko": "스윕 종류",
+      "category": "sweep",
+      "operations": {
+        "set": {
+          "scpi": "SENS:SWE:TYPE {type}"
+        },
+        "query": {
+          "scpi": "SENS:SWE:TYPE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "type",
+          "type": "enum",
+          "choices": [
+            "LIN",
+            "LOG",
+            "POW",
+            "CW",
+            "SEGM",
+            "PHAS"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "trigger.source",
+      "label_ko": "트리거 소스",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIG:SOUR {source}"
+        },
+        "query": {
+          "scpi": "TRIG:SOUR?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "enum",
+          "choices": [
+            "EXT",
+            "IMM",
+            "MAN"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "trace.active",
+      "label_ko": "활성 트레이스",
+      "category": "trace",
+      "operations": {
+        "set": {
+          "scpi": "CALC:PAR:MNUM {trace}"
+        },
+        "query": {
+          "scpi": "CALC:PAR:MNUM?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "trace",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 24
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "scope": "trace"
+    },
+    {
+      "capability_id": "trace.format",
+      "label_ko": "트레이스 형식",
+      "category": "trace",
+      "operations": {
+        "set": {
+          "scpi": "CALC:FORM {format}"
+        },
+        "query": {
+          "scpi": "CALC:FORM?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "format",
+          "type": "enum",
+          "choices": [
+            "MLIN",
+            "MLOG",
+            "PHAS",
+            "UPH",
+            "IMAG",
+            "REAL",
+            "POLAR"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "scope": "trace"
+    },
+    {
+      "capability_id": "trace.data.formatted",
+      "label_ko": "포맷된 트레이스 데이터",
+      "category": "trace",
+      "operations": {
+        "query": {
+          "scpi": "CALC:DATA? FDATA",
+          "response_type": "float_array",
+          "binary": true
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "scope": "trace"
+    },
+    {
+      "capability_id": "trace.catalog",
+      "label_ko": "트레이스 카탈로그",
+      "category": "trace",
+      "operations": {
+        "query": {
+          "scpi": "CALC:PAR:CAT:EXT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    },
+    {
+      "capability_id": "trace.select",
+      "label_ko": "이름으로 트레이스 선택",
+      "category": "trace",
+      "operations": {
+        "execute": {
+          "scpi": "CALC:PAR:SEL '{trace_name}'"
+        }
+      },
+      "parameters": [
+        {
+          "name": "trace_name",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ],
+      "scope": "trace"
+    },
+    {
+      "capability_id": "averaging.clear",
+      "label_ko": "평균 누적 초기화",
+      "category": "averaging",
+      "operations": {
+        "execute": {
+          "scpi": "SENS:AVER:CLE"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_n52xx",
+        "qcodes_keysight_n5245a"
+      ]
+    }
+  ],
+  "model_limits": {
+    "N5245A": {
+      "frequency_Hz": [
+        10000000.0,
+        50000000000.0
+      ],
+      "power_dBm": [
+        -30,
+        13
+      ],
+      "ports": 4,
+      "options": {
+        "219_or_419": {
+          "minimum_power_dBm": -90
+        },
+        "080": "FOM"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "target": "Windows x86-64",
+  "python": "3.11.9",
+  "tcl": "8.6",
+  "tk": "8.6",
+  "distributions": {
+    "altgraph": "0.17.5",
+    "packaging": "26.2",
+    "pefile": "2024.8.26",
+    "PyInstaller": "6.21.0",
+    "pyinstaller-hooks-contrib": "2026.6",
+    "PyVISA": "1.16.2",
+    "pywin32-ctypes": "0.2.3",
+    "setuptools": "83.0.0",
+    "typing_extensions": "4.16.0",
+    "XlsxWriter": "3.2.9"
+  },
+  "runtime_distributions": [
+    "PyVISA",
+    "typing_extensions",
+    "XlsxWriter"
+  ],
+  "external_components": [
+    "A vendor VISA runtime installed separately by the user"
+  ]
+}

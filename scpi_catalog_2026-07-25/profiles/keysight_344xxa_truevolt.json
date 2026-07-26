@@ -1,0 +1,568 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "keysight_344xxa_truevolt",
+  "manufacturer": "Keysight",
+  "model_family": "344xxA / Truevolt",
+  "models": [
+    "34410A",
+    "34411A",
+    "34460A",
+    "34461A",
+    "34465A",
+    "34470A"
+  ],
+  "instrument_class": "digital_multimeter",
+  "identification": {
+    "idn_patterns": [
+      "Keysight Technologies,344(10|11|60|61|65|70)A,.*",
+      "Agilent Technologies,344(10|11)A,.*"
+    ]
+  },
+  "interfaces": [
+    "VISA"
+  ],
+  "source_ids": [
+    "qcodes_keysight_344xxa"
+  ],
+  "verification": {
+    "status": "project_driver_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "모델·DIG/MEM 옵션·펌웨어에 따라 최대 샘플 수와 트리거 기능이 다름.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "measurement.abort",
+      "arguments": {}
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "dmm.sense.function",
+      "label_ko": "측정 기능",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": "SENSe:FUNCtion {function}"
+        },
+        "query": {
+          "scpi": "SENSe:FUNCtion?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "function",
+          "type": "enum",
+          "choices": [
+            "\"VOLT\"",
+            "\"VOLT:AC\"",
+            "\"CURR\"",
+            "\"CURR:AC\"",
+            "\"RES\"",
+            "\"FRES\""
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "system.line_frequency",
+      "label_ko": "전원 주파수",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "SYSTem:LFRequency?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "Hz"
+    },
+    {
+      "capability_id": "dmm.range.dc_voltage",
+      "label_ko": "DC 전압 범위",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": "SENSe:VOLTage:DC:RANGe {value}"
+        },
+        "query": {
+          "scpi": "SENSe:VOLTage:DC:RANGe?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float_or_mnemonic",
+          "unit": "V",
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "dmm.resolution.dc_voltage",
+      "label_ko": "DC 전압 분해능",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": "VOLT:DC:RES {value}"
+        },
+        "query": {
+          "scpi": "SENSe:VOLTage:DC:RESolution?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float_or_mnemonic",
+          "unit": "V",
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "dmm.nplc",
+      "label_ko": "적분시간 NPLC",
+      "category": "measurement",
+      "operations": {
+        "set": {
+          "scpi": "SENSe:{sense_function}:NPLC {value}"
+        },
+        "query": {
+          "scpi": "SENSe:{sense_function}:NPLC?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "sense_function",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "float"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "NPLC"
+    },
+    {
+      "capability_id": "trigger.count",
+      "label_ko": "트리거 횟수",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIGger:COUNt {value}"
+        },
+        "query": {
+          "scpi": "TRIGger:COUNt?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer_or_mnemonic",
+          "minimum": 1,
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF",
+            "INF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "trigger.delay",
+      "label_ko": "트리거 지연",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIGger:DELay {value}"
+        },
+        "query": {
+          "scpi": "TRIGger:DELay?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float_or_mnemonic",
+          "unit": "s",
+          "minimum": 0,
+          "maximum": 3600,
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "trigger.delay.auto",
+      "label_ko": "자동 트리거 지연",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIGger:DELay:AUTO {state}"
+        },
+        "query": {
+          "scpi": "TRIGger:DELay:AUTO?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "trigger.slope",
+      "label_ko": "트리거 기울기",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIGger:SLOPe {slope}"
+        },
+        "query": {
+          "scpi": "TRIGger:SLOPe?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "slope",
+          "type": "enum",
+          "choices": [
+            "POS",
+            "NEG"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "trigger.source",
+      "label_ko": "트리거 소스",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": "TRIGger:SOURce {source}"
+        },
+        "query": {
+          "scpi": "TRIGger:SOURce?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "enum",
+          "choices": [
+            "IMM",
+            "EXT",
+            "BUS",
+            "INT"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "note_ko": "INT는 DIG 기능 또는 일부 모델에서만 지원."
+    },
+    {
+      "capability_id": "trigger.force",
+      "label_ko": "버스 트리거",
+      "category": "trigger",
+      "operations": {
+        "execute": {
+          "scpi": "*TRG"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "sample.count",
+      "label_ko": "트리거당 샘플 수",
+      "category": "sample",
+      "operations": {
+        "set": {
+          "scpi": "SAMPle:COUNt {value}"
+        },
+        "query": {
+          "scpi": "SAMPle:COUNt?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer_or_mnemonic",
+          "minimum": 1,
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "sample.pretrigger.count",
+      "label_ko": "프리트리거 샘플 수",
+      "category": "sample",
+      "operations": {
+        "set": {
+          "scpi": "SAMPle:COUNt:PRETrigger {value}"
+        },
+        "query": {
+          "scpi": "SAMPle:COUNt:PRETrigger?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer_or_mnemonic",
+          "minimum": 0,
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "note_ko": "DIG/MEM 옵션 및 모델별 최대값 차이."
+    },
+    {
+      "capability_id": "sample.source",
+      "label_ko": "샘플 타이밍 소스",
+      "category": "sample",
+      "operations": {
+        "set": {
+          "scpi": "SAMPle:SOURce {source}"
+        },
+        "query": {
+          "scpi": "SAMPle:SOURce?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "enum",
+          "choices": [
+            "IMM",
+            "TIM"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "sample.timer",
+      "label_ko": "샘플 타이머",
+      "category": "sample",
+      "operations": {
+        "set": {
+          "scpi": "SAMPle:TIMer {value}"
+        },
+        "query": {
+          "scpi": "SAMPle:TIMer?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float_or_mnemonic",
+          "unit": "s",
+          "minimum": 0,
+          "maximum": 3600,
+          "choices": [
+            "MIN",
+            "MAX",
+            "DEF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "measurement.initiate",
+      "label_ko": "측정 초기화·트리거 대기",
+      "category": "measurement",
+      "operations": {
+        "execute": {
+          "scpi": "INIT"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "measurement.fetch",
+      "label_ko": "측정 메모리 읽기",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "FETCH?",
+          "response_type": "float_array"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "measurement.read",
+      "label_ko": "즉시 측정·읽기",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "READ?",
+          "response_type": "float_array"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "measurement.abort",
+      "label_ko": "측정 중단",
+      "category": "measurement",
+      "operations": {
+        "execute": {
+          "scpi": "ABORt"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    },
+    {
+      "capability_id": "system.reset",
+      "label_ko": "초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*RST"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "project_driver_confirmed",
+      "source_ids": [
+        "qcodes_keysight_344xxa"
+      ]
+    }
+  ]
+}

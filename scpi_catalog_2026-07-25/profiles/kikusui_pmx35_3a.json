@@ -1,0 +1,506 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "kikusui_pmx35_3a",
+  "manufacturer": "Kikusui",
+  "model_family": "PMX-A",
+  "models": [
+    "PMX35-3A"
+  ],
+  "instrument_class": "dc_power_supply",
+  "identification": {
+    "idn_patterns": [
+      "KIKUSUI,PMX35-3A,.*"
+    ]
+  },
+  "interfaces": [
+    "USBTMC",
+    "VXI-11",
+    "HiSLIP",
+    "SCPI-RAW",
+    "RS-232C"
+  ],
+  "source_ids": [
+    "lab_visa_pmx35_profile"
+  ],
+  "verification": {
+    "status": "profile_source_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "lab-visa-mcp의 실장비 프로파일을 정규화. 공식 매뉴얼 명령 페이지 재대조 전에는 자동 승인 금지.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "output.state",
+      "arguments": {
+        "state": false
+      }
+    },
+    {
+      "capability_id": "source.voltage",
+      "arguments": {
+        "value": 0.0
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "system.identify",
+      "label_ko": "기기 식별",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "*IDN?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "system.reset",
+      "label_ko": "초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*RST"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "system.clear_status",
+      "label_ko": "상태·오류 큐 초기화",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*CLS"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "system.options.query",
+      "label_ko": "옵션 조회",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "*OPT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "system.self_test",
+      "label_ko": "자기진단",
+      "category": "system",
+      "operations": {
+        "query": {
+          "scpi": "*TST?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "trigger.force",
+      "label_ko": "버스 트리거",
+      "category": "trigger",
+      "operations": {
+        "execute": {
+          "scpi": "*TRG"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "operation.wait",
+      "label_ko": "동작 완료 대기",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "*WAI"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "output.state",
+      "label_ko": "DC 출력 ON/OFF",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTP {state}"
+        },
+        "query": {
+          "scpi": "OUTP?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "ON",
+            "false": "OFF"
+          }
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "preconditions": [
+        "OVP/OCP 설정 확인",
+        "부하 허용 전압·전류 확인"
+      ]
+    },
+    {
+      "capability_id": "output.power_on_state",
+      "label_ko": "전원 인가 시 출력 정책",
+      "category": "output",
+      "operations": {
+        "set": {
+          "scpi": "OUTP:PON {state}"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "enum",
+          "choices": [
+            "SAFE",
+            "AUTO",
+            "FORCE"
+          ]
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "protection.clear",
+      "label_ko": "보호 알람 해제",
+      "category": "protection",
+      "operations": {
+        "execute": {
+          "scpi": "OUTP:PROT:CLE"
+        }
+      },
+      "parameters": [],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "preconditions": [
+        "보호 동작 원인을 제거한 뒤 실행"
+      ]
+    },
+    {
+      "capability_id": "source.voltage",
+      "label_ko": "출력 전압 설정",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "VOLT {value}"
+        },
+        "query": {
+          "scpi": "VOLT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 0,
+          "maximum": 36.75
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "V",
+      "note_ko": "정격 35 V; 출처 프로파일은 105%까지 설정 범위를 기록."
+    },
+    {
+      "capability_id": "protection.over_voltage",
+      "label_ko": "과전압 보호 설정",
+      "category": "protection",
+      "operations": {
+        "set": {
+          "scpi": "VOLT:PROT {value}"
+        },
+        "query": {
+          "scpi": "VOLT:PROT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 3.5,
+          "maximum": 38.5
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "source.voltage.trigger_value",
+      "label_ko": "트리거 전압 설정",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "VOLT:TRIG {value}"
+        },
+        "query": {
+          "scpi": "VOLT:TRIG?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V",
+          "minimum": 0,
+          "maximum": 36.75
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "source.current",
+      "label_ko": "출력 전류 한계 설정",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "CURR {value}"
+        },
+        "query": {
+          "scpi": "CURR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A",
+          "minimum": 0,
+          "maximum": 3.15
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "A",
+      "note_ko": "정격 3 A; 출처 프로파일은 105%까지 설정 범위를 기록."
+    },
+    {
+      "capability_id": "protection.over_current",
+      "label_ko": "과전류 보호 설정",
+      "category": "protection",
+      "operations": {
+        "set": {
+          "scpi": "CURR:PROT {value}"
+        },
+        "query": {
+          "scpi": "CURR:PROT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A",
+          "minimum": 0.3,
+          "maximum": 3.3
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "A"
+    },
+    {
+      "capability_id": "source.current.trigger_value",
+      "label_ko": "트리거 전류 설정",
+      "category": "source",
+      "operations": {
+        "set": {
+          "scpi": "CURR:TRIG {value}"
+        },
+        "query": {
+          "scpi": "CURR:TRIG?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "A",
+          "minimum": 0,
+          "maximum": 3.15
+        }
+      ],
+      "risk_level": "high",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "A"
+    },
+    {
+      "capability_id": "measurement.voltage",
+      "label_ko": "실제 출력 전압 측정",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEAS:VOLT?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "measurement.current",
+      "label_ko": "실제 출력 전류 측정",
+      "category": "measurement",
+      "operations": {
+        "query": {
+          "scpi": "MEAS:CURR?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ],
+      "unit": "A"
+    },
+    {
+      "capability_id": "transient.initiate",
+      "label_ko": "트랜지언트 트리거 대기 시작",
+      "category": "trigger",
+      "operations": {
+        "execute": {
+          "scpi": "INIT:TRAN"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    },
+    {
+      "capability_id": "operation.abort",
+      "label_ko": "진행 중 동작 중단",
+      "category": "system",
+      "operations": {
+        "execute": {
+          "scpi": "ABOR"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "profile_source_confirmed",
+      "source_ids": [
+        "lab_visa_pmx35_profile"
+      ]
+    }
+  ],
+  "model_limits": {
+    "PMX35-3A": {
+      "voltage_V": [
+        0,
+        35
+      ],
+      "current_A": [
+        0,
+        3
+      ],
+      "ovp_V": [
+        3.5,
+        38.5
+      ],
+      "ocp_A": [
+        0.3,
+        3.3
+      ]
+    }
+  }
+}

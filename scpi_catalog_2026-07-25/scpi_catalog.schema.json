@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/scpi-catalog.schema.json",
+  "title": "SCPI Catalog",
+  "type": "object",
+  "required": [
+    "catalog_version",
+    "generated_at",
+    "verified_on",
+    "scope",
+    "taxonomy",
+    "sources",
+    "manuals",
+    "profiles"
+  ],
+  "properties": {
+    "catalog_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "verified_on": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "profile_id",
+          "manufacturer",
+          "model_family",
+          "instrument_class",
+          "identification",
+          "capabilities"
+        ],
+        "properties": {
+          "profile_id": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "model_family": {
+            "type": "string"
+          },
+          "instrument_class": {
+            "type": "string"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "capability_id",
+                "label_ko",
+                "category",
+                "operations",
+                "risk_level",
+                "verification"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

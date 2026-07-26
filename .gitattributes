@@ -1,0 +1,17 @@
+* text=auto
+
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.spec text eol=lf
+
+*.sqlite binary
+*.webp binary
+*.png binary

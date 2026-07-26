@@ -1,0 +1,866 @@
+{
+  "schema_version": "0.1",
+  "profile_id": "rigol_ds1000z",
+  "manufacturer": "RIGOL",
+  "model_family": "DS1000Z",
+  "models": [
+    "DS1054Z",
+    "DS1074Z",
+    "DS1104Z",
+    "MSO/DS1000Z series"
+  ],
+  "instrument_class": "digital_oscilloscope",
+  "identification": {
+    "idn_patterns": [
+      "RIGOL TECHNOLOGIES,DS1.*Z.*"
+    ]
+  },
+  "interfaces": [
+    "USBTMC",
+    "LAN/VXI-11"
+  ],
+  "source_ids": [
+    "rigol_ds1000z_driver"
+  ],
+  "verification": {
+    "status": "live_hardware_source_confirmed",
+    "verified_on": "2026-07-25",
+    "hardware_verified_by_catalog_owner": false,
+    "notes_ko": "출처 라이브러리는 실장비 사용 사례를 명시. 일부 write/query에 자동으로 ;*WAI와 지연을 붙이는 구현이므로 코어 엔진에 그대로 복제하지 말 것.",
+    "distribution_basis": "permissive_open_source",
+    "manufacturer_manual_content_bundled": false
+  },
+  "safe_shutdown": [
+    {
+      "capability_id": "acquisition.stop",
+      "arguments": {}
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "display.autoscale",
+      "label_ko": "자동 스케일",
+      "category": "display",
+      "operations": {
+        "execute": {
+          "scpi": ":AUT"
+        }
+      },
+      "parameters": [],
+      "risk_level": "medium",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "display.clear",
+      "label_ko": "화면 지우기",
+      "category": "display",
+      "operations": {
+        "execute": {
+          "scpi": ":CLE"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "acquisition.run",
+      "label_ko": "연속 획득",
+      "category": "acquisition",
+      "operations": {
+        "execute": {
+          "scpi": ":RUN"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "acquisition.stop",
+      "label_ko": "획득 정지",
+      "category": "acquisition",
+      "operations": {
+        "execute": {
+          "scpi": ":STOP"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "acquisition.single",
+      "label_ko": "싱글 획득",
+      "category": "acquisition",
+      "operations": {
+        "execute": {
+          "scpi": ":SING"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.force",
+      "label_ko": "강제 트리거",
+      "category": "trigger",
+      "operations": {
+        "execute": {
+          "scpi": ":TFOR"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "channel.bandwidth_limit",
+      "label_ko": "채널 대역 제한",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:BWL {mode}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:BWL?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "20M",
+            "OFF"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.coupling",
+      "label_ko": "채널 커플링",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:COUP {mode}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:COUP?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.display",
+      "label_ko": "채널 표시 ON/OFF",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:DISP {state}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:DISP?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.invert",
+      "label_ko": "채널 반전",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:INV {state}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:INV?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.probe_ratio",
+      "label_ko": "프로브 배율",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:PROB {value}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:PROB?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.range",
+      "label_ko": "채널 전체 전압 범위",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:RANG {value}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:RANG?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.scale",
+      "label_ko": "채널 V/div",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:SCAL {value}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:SCAL?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V/div"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "V/div",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.offset",
+      "label_ko": "채널 Offset",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:OFFS {value}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:OFFS?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "V",
+      "scope": "channel"
+    },
+    {
+      "capability_id": "channel.units",
+      "label_ko": "채널 단위",
+      "category": "channel",
+      "operations": {
+        "set": {
+          "scpi": ":CHAN{channel}:UNIT {unit}"
+        },
+        "query": {
+          "scpi": ":CHAN{channel}:UNIT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "name": "unit",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "scope": "channel"
+    },
+    {
+      "capability_id": "timebase.mode",
+      "label_ko": "타임베이스 모드",
+      "category": "timebase",
+      "operations": {
+        "set": {
+          "scpi": ":TIM:MODE {mode}"
+        },
+        "query": {
+          "scpi": ":TIM:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "timebase.scale",
+      "label_ko": "시간축 s/div",
+      "category": "timebase",
+      "operations": {
+        "set": {
+          "scpi": ":TIM:SCAL {value}"
+        },
+        "query": {
+          "scpi": ":TIM:SCAL?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s/div"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "s/div"
+    },
+    {
+      "capability_id": "timebase.offset",
+      "label_ko": "시간축 Offset",
+      "category": "timebase",
+      "operations": {
+        "set": {
+          "scpi": ":TIM:OFFS {value}"
+        },
+        "query": {
+          "scpi": ":TIM:OFFS?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "s"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "s"
+    },
+    {
+      "capability_id": "trigger.mode",
+      "label_ko": "트리거 모드",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:MODE {mode}"
+        },
+        "query": {
+          "scpi": ":TRIG:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "enum",
+          "choices": [
+            "EDGE",
+            "PULS",
+            "SLOP"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.status",
+      "label_ko": "트리거 상태",
+      "category": "trigger",
+      "operations": {
+        "query": {
+          "scpi": ":TRIG:STAT?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.sweep",
+      "label_ko": "트리거 스윕 모드",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:SWE {mode}"
+        },
+        "query": {
+          "scpi": ":TRIG:SWE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.noise_reject",
+      "label_ko": "트리거 노이즈 제거",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:NREJ {state}"
+        },
+        "query": {
+          "scpi": ":TRIG:NREJ?",
+          "response_type": "boolean"
+        }
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "boolean",
+          "mapping": {
+            "true": "1",
+            "false": "0"
+          }
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.edge.source",
+      "label_ko": "에지 트리거 소스",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:EDG:SOUR {source}"
+        },
+        "query": {
+          "scpi": ":TRIG:EDG:SOUR?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "string",
+          "note_ko": "CHAN1~CHAN4, EXT 등"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.edge.slope",
+      "label_ko": "에지 트리거 기울기",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:EDG:SLOP {slope}"
+        },
+        "query": {
+          "scpi": ":TRIG:EDG:SLOP?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "slope",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "trigger.edge.level",
+      "label_ko": "에지 트리거 레벨",
+      "category": "trigger",
+      "operations": {
+        "set": {
+          "scpi": ":TRIG:EDG:LEV {value}"
+        },
+        "query": {
+          "scpi": ":TRIG:EDG:LEV?",
+          "response_type": "float"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "float",
+          "unit": "V"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ],
+      "unit": "V"
+    },
+    {
+      "capability_id": "waveform.source",
+      "label_ko": "파형 데이터 소스",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": ":WAV:SOUR {source}"
+        },
+        "query": {
+          "scpi": ":WAV:SOUR?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "source",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.mode",
+      "label_ko": "파형 읽기 모드",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": ":WAV:MODE {mode}"
+        },
+        "query": {
+          "scpi": ":WAV:MODE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.format",
+      "label_ko": "파형 전송 형식",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": ":WAV:FORM {format}"
+        },
+        "query": {
+          "scpi": ":WAV:FORM?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [
+        {
+          "name": "format",
+          "type": "enum",
+          "choices": [
+            "ASC",
+            "BYTE",
+            "WORD"
+          ]
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.start",
+      "label_ko": "파형 시작 포인트",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": ":WAV:STAR {value}"
+        },
+        "query": {
+          "scpi": ":WAV:STAR?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.stop",
+      "label_ko": "파형 종료 포인트",
+      "category": "waveform",
+      "operations": {
+        "set": {
+          "scpi": ":WAV:STOP {value}"
+        },
+        "query": {
+          "scpi": ":WAV:STOP?",
+          "response_type": "integer"
+        }
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "integer"
+        }
+      ],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.data",
+      "label_ko": "파형 데이터 읽기",
+      "category": "waveform",
+      "operations": {
+        "query": {
+          "scpi": ":WAV:DATA?",
+          "response_type": "array",
+          "binary": true
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    },
+    {
+      "capability_id": "waveform.preamble",
+      "label_ko": "파형 Preamble",
+      "category": "waveform",
+      "operations": {
+        "query": {
+          "scpi": ":WAV:PRE?",
+          "response_type": "string"
+        }
+      },
+      "parameters": [],
+      "risk_level": "low",
+      "verification": "live_hardware_source_confirmed",
+      "source_ids": [
+        "rigol_ds1000z_driver"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "generated_at": "2026-07-26T13:30:25+09:00",
+  "verified_on": "2026-07-25",
+  "database_integrity": "ok",
+  "counts": {
+    "profiles": 12,
+    "manuals": 12,
+    "sources": 15,
+    "capabilities": 237,
+    "operations": 390,
+    "high_risk_operations": 60,
+    "manual_command_candidates": 0
+  },
+  "instrument_classes": {
+    "dc_power_supply": 3,
+    "digital_multimeter": 1,
+    "digital_oscilloscope": 1,
+    "function_arbitrary_waveform_generator": 1,
+    "lcr_meter": 1,
+    "rf_signal_generator": 1,
+    "signal_and_spectrum_analyzer": 2,
+    "spectrum_analyzer": 1,
+    "vector_network_analyzer": 1
+  },
+  "risk_levels": {
+    "high": 33,
+    "low": 179,
+    "medium": 25
+  },
+  "verification_levels": {
+    "live_hardware_source_confirmed": 32,
+    "profile_source_confirmed": 20,
+    "project_driver_confirmed": 60,
+    "source_code_confirmed": 125
+  },
+  "placeholder_validation": {
+    "status": "ok",
+    "errors": []
+  },
+  "profiles": [
+    {
+      "profile_id": "kikusui_pmx35_3a",
+      "manufacturer": "Kikusui",
+      "model_family": "PMX-A",
+      "instrument_class": "dc_power_supply",
+      "capability_count": 20,
+      "operation_count": 27,
+      "manual_command_candidates": 0,
+      "verification": "profile_source_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rs_smb100a",
+      "manufacturer": "Rohde & Schwarz",
+      "model_family": "SMB100A",
+      "instrument_class": "rf_signal_generator",
+      "capability_count": 15,
+      "operation_count": 27,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rs_fsl",
+      "manufacturer": "Rohde & Schwarz",
+      "model_family": "FSL",
+      "instrument_class": "spectrum_analyzer",
+      "capability_count": 20,
+      "operation_count": 32,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rs_fsw",
+      "manufacturer": "Rohde & Schwarz",
+      "model_family": "FSW",
+      "instrument_class": "signal_and_spectrum_analyzer",
+      "capability_count": 27,
+      "operation_count": 39,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rs_fsv_fsva",
+      "manufacturer": "Rohde & Schwarz",
+      "model_family": "FSV/FSVA legacy (FW 3.60)",
+      "instrument_class": "signal_and_spectrum_analyzer",
+      "capability_count": 14,
+      "operation_count": 25,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "keysight_e36312a",
+      "manufacturer": "Keysight",
+      "model_family": "E36300 Series",
+      "instrument_class": "dc_power_supply",
+      "capability_count": 5,
+      "operation_count": 8,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "keysight_33500_series",
+      "manufacturer": "Keysight / Agilent",
+      "model_family": "33500 Series",
+      "instrument_class": "function_arbitrary_waveform_generator",
+      "capability_count": 23,
+      "operation_count": 46,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "keysight_344xxa_truevolt",
+      "manufacturer": "Keysight",
+      "model_family": "344xxA / Truevolt",
+      "instrument_class": "digital_multimeter",
+      "capability_count": 20,
+      "operation_count": 33,
+      "manual_command_candidates": 0,
+      "verification": "project_driver_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rigol_ds1000z",
+      "manufacturer": "RIGOL",
+      "model_family": "DS1000Z",
+      "instrument_class": "digital_oscilloscope",
+      "capability_count": 32,
+      "operation_count": 55,
+      "manual_command_candidates": 0,
+      "verification": "live_hardware_source_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "keysight_e4980a",
+      "manufacturer": "Keysight",
+      "model_family": "E4980A",
+      "instrument_class": "lcr_meter",
+      "capability_count": 18,
+      "operation_count": 29,
+      "manual_command_candidates": 0,
+      "verification": "project_driver_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "keysight_n52xx_pna",
+      "manufacturer": "Keysight",
+      "model_family": "N52xx PNA/PNA-X",
+      "instrument_class": "vector_network_analyzer",
+      "capability_count": 22,
+      "operation_count": 39,
+      "manual_command_candidates": 0,
+      "verification": "project_driver_confirmed",
+      "manual_ids": []
+    },
+    {
+      "profile_id": "rs_hmp2000_hmp4000",
+      "manufacturer": "Rohde & Schwarz",
+      "model_family": "HMP2000/HMP4000",
+      "instrument_class": "dc_power_supply",
+      "capability_count": 21,
+      "operation_count": 30,
+      "manual_command_candidates": 0,
+      "verification": "source_code_confirmed",
+      "manual_ids": []
+    }
+  ],
+  "limitations_ko": [
+    "제조사 매뉴얼 원문, 명령 색인, 페이지 매핑은 배포하지 않는다.",
+    "모델별 SCPI 바인딩은 라이선스가 확인된 오픈소스 출처만 포함한다.",
+    "사용자 로컬 매뉴얼 후보는 저장소 밖에서만 관리하며 자동 실행하지 않는다.",
+    "위험 명령, 파일·메모리 변경, Reset·Calibration은 일괄 자동 검증하지 않는다.",
+    "오픈소스 드라이버 근거는 해당 물리 장비에서의 동작 보증이 아니다."
+  ]
+}

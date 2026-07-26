@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scpi-automation-platform"
+version = "0.1.0.dev0"
+description = "Offline Windows SCPI instrument controller"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+  {name = "obundh"},
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "XlsxWriter>=3.2.9,<4",
+]
+
+[project.optional-dependencies]
+visa = [
+  "PyVISA>=1.14,<2",
+]
+build = [
+  "PyInstaller>=6.21,<7",
+  "PyVISA>=1.14,<2",
+]
+
+[project.scripts]
+scpi-controller = "scpi_automation.app:main"
+
+[project.urls]
+Homepage = "https://github.com/obundh/SCPI-Automation-Platform"
+Repository = "https://github.com/obundh/SCPI-Automation-Platform"
+Issues = "https://github.com/obundh/SCPI-Automation-Platform/issues"
+
+[tool.setuptools]
+include-package-data = true
+license-files = [
+  "LICENSE",
+  "THIRD_PARTY_NOTICES.md",
+]
+
+[tool.setuptools.data-files]
+"scpi_catalog_2026-07-25" = [
+  "scpi_catalog_2026-07-25/scpi_catalog.json",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
