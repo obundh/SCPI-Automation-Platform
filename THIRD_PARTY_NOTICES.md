@@ -292,6 +292,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## Windows installer builder
+
+The optional beginner Windows setup executable is built with Inno Setup 6.7.3.
+The compiler is downloaded from the official immutable release, then its
+SHA-256 and Authenticode publisher signature are verified before use. The
+generated installer retains Inno Setup's built-in notices and installs the
+verbatim license at `LICENSES/Inno-Setup-6.7.3/`.
+
+- Project: <https://jrsoftware.org/isinfo.php>
+- License: Inno Setup License
+- License text: <https://jrsoftware.org/files/is/license.txt>
+
 ## Trademarks and manufacturer documentation
 
 Rohde & Schwarz, Keysight, Agilent, RIGOL, Kikusui, and other product names are

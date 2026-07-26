@@ -1,5 +1,31 @@
 # 계측기 연결 도우미
 
+> **Windows에서 바로 사용하기:** [설치 파일 다운로드](https://github.com/obundh/SCPI-Automation-Platform/releases)
+> Releases의 `SCPI-Automation-Platform-Setup-...-win64.exe`가 초보자용 권장 파일입니다.
+
+## 다운로드하고 바로 시작하기
+
+Python이나 개발 도구를 설치할 필요가 없습니다.
+
+1. [Windows 다운로드 페이지](https://github.com/obundh/SCPI-Automation-Platform/releases)를 엽니다.
+2. 가장 위 버전의 `Setup-...-win64.exe`를 다운로드하고 더블클릭합니다.
+3. 설치가 끝나면 **계측기 연결 도우미**를 실행하고
+   `데모 장비 4대로 둘러보기`부터 눌러 봅니다.
+
+설치 권한이 없는 시험용 PC에서는 `Portable-...-win64.zip`을 받아 압축을
+푼 뒤 `SCPI-Automation-Platform.exe`를 실행하면 됩니다. 두 방식 모두
+Windows 10/11 64비트용이며 인터넷 없이 실행됩니다.
+
+실제 계측기 검색에는 시험 PC에 설치된 NI-VISA, Keysight IO Libraries 또는
+R&S VISA 같은 통신 드라이버가 필요할 수 있습니다. 프로그램 설치와 데모
+사용에는 필요하지 않습니다. 자세한 내용은
+[처음 설치하는 방법](docs/WINDOWS_INSTALL_KO.md)을 확인하세요.
+
+> 현재 공개판은 개발 프리뷰입니다. 자동 빌드와 설치 검사는 통과하지만,
+> GitHub 빌드 과정에서 실제 계측기를 다시 연결해 검증한 것은 아닙니다.
+> 데모와 Dry Run으로 먼저 확인하고, 실제 장비에서는 operation별 검증과
+> 안전 한계를 확인한 뒤 사용하세요.
+
 장비 조작기와 측정 계획기의 책임을 분리해 개발하는 새 프로젝트다. 현재 구현은 초보자 안내에 따라 연결된 장비를 찾고 read-only `*IDN?` 응답으로 종류를 분류한 뒤, 여러 장비의 기능 루틴과 측정 계획을 작성하고, Dry Run·실제 실행·결과 확인과 MD/JSON/Excel 저장까지 이어지는 5개 Tkinter 탭을 포함한다.
 
 카탈로그에 들어 있는 12개 모델 자료는 permissive 오픈소스 드라이버·프로필을
@@ -273,7 +299,7 @@ OSS 근거 프로필의 operation을 실장비에서 검증한 뒤에만 실행 
 위험도가 낮아도 아직 시험하지 않았으면 사용할 수 없고, 위험도가 높으면
 명령 자체가 확인됐더라도 시험별 안전 한계와 추가 승인이 필요하다.
 
-## 실행
+## 개발자로 실행하기
 
 Python 3.10 이상이 있는 개발 PC:
 
@@ -336,13 +362,25 @@ py -3.11 -m venv .release-venv
 .\.release-venv\Scripts\python.exe -m pip install --require-hashes `
   -r .\packaging\windows\requirements-build-win-py311.txt
 .\.release-venv\Scripts\python.exe .\tools\build_windows_release.py `
-  --output .\dist\SCPI-Automation-Platform-0.1.0.dev0-win64
+  --output .\dist\SCPI-Automation-Platform-0.1.0.dev1-win64
 ```
 
 빌드 도구는 EXE smoke test, PyInstaller TOC 검사, 제조사 VISA DLL·매뉴얼
 산출물 차단, 정확한 런타임 라이선스 수집과 SHA-256 목록 생성을 모두
 통과해야 배포 폴더를 만든다. `PyVISA-py` backend는 첫 공개 빌드에 포함하지
 않는다.
+
+`v0.1.0-dev.1`처럼 프로그램 버전과 일치하는 태그를 푸시하면
+`release-windows.yml`이 동일한 검사를 다시 수행한 뒤 다음 공개 파일을
+자동으로 만든다.
+
+- 초보자용 사용자별 설치 프로그램
+- 설치가 제한된 PC용 Portable ZIP
+- 두 파일의 SHA-256 목록
+
+설치 프로그램은 잠긴 Inno Setup 버전·SHA-256과 공식 게시자 서명을 확인한
+뒤 빌드하며, 임시 사용자 폴더에 자동 설치 → 동결 EXE 자체 검사 → 제거까지
+통과해야 Release에 올라간다.
 
 ## 문서
 

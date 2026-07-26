@@ -1,0 +1,314 @@
+name: Windows release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions: {}
+
+concurrency:
+  group: windows-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    permissions:
+      contents: read
+    env:
+      PYTHONUTF8: "1"
+    outputs:
+      release_label: ${{ steps.version.outputs.release_label }}
+
+    steps:
+      - name: Check out the tagged source with full history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up the locked Python version
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.11.9"
+          cache: pip
+
+      - name: Verify tag and application versions
+        id: version
+        shell: pwsh
+        run: |
+          git merge-base --is-ancestor $env:GITHUB_SHA origin/main
+          if ($LASTEXITCODE -ne 0) {
+            throw "Release tags must point to a commit already contained in main"
+          }
+          $version = python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])"
+          $label = python -c "from tools.build_windows_installer import release_version_label; print(release_version_label('$version'))"
+          $expectedTag = "v$label"
+          if ($env:GITHUB_REF_NAME -ne $expectedTag) {
+            throw "Tag $env:GITHUB_REF_NAME does not match application version $version ($expectedTag)"
+          }
+          $packageVersion = python -c "import sys; sys.path.insert(0,'src'); import scpi_automation; print(scpi_automation.__version__)"
+          if ($packageVersion -ne $version) {
+            throw "pyproject.toml ($version) and package ($packageVersion) versions differ"
+          }
+          "SCPI_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "SCPI_RELEASE_LABEL=$label" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "release_label=$label" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Install the hash-locked build environment
+        run: >-
+          python -m pip install --require-hashes
+          -r .\packaging\windows\requirements-build-win-py311.txt
+
+      - name: Run unit and UI tests
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -v
+
+      - name: Run source GUI smoke and component self-checks
+        run: |
+          python .\run_app.py --smoke-test
+          python .\run_app.py --release-self-check
+
+      - name: Enforce public release policy
+        run: python .\tools\check_public_release.py
+
+      - name: Build and audit the standalone Windows application
+        run: >-
+          python .\tools\build_windows_release.py
+          --output ".\dist\payload"
+
+      - name: Verify Windows executable metadata and icon
+        shell: pwsh
+        run: |
+          $exe = Resolve-Path -LiteralPath .\dist\payload\SCPI-Automation-Platform.exe
+          @'
+          from pathlib import Path
+          import pefile
+
+          executable = Path("dist/payload/SCPI-Automation-Platform.exe")
+          pe = pefile.PE(str(executable), fast_load=False)
+          if pe.FILE_HEADER.Machine != pefile.MACHINE_TYPE["IMAGE_FILE_MACHINE_AMD64"]:
+              raise SystemExit("Windows executable is not AMD64")
+          pe.parse_data_directories(
+              directories=[pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_RESOURCE"]]
+          )
+          resources = getattr(pe, "DIRECTORY_ENTRY_RESOURCE", None)
+          if resources is None or not any(
+              entry.id == pefile.RESOURCE_TYPE["RT_GROUP_ICON"]
+              for entry in resources.entries
+          ):
+              raise SystemExit("Windows executable has no group-icon resource")
+          pe.close()
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) {
+            throw "PE architecture or icon verification failed"
+          }
+          $metadata = (Get-Item -LiteralPath $exe).VersionInfo
+          if ($metadata.FileVersion -ne $env:SCPI_VERSION) {
+            throw "FileVersion mismatch: $($metadata.FileVersion)"
+          }
+          if ($metadata.ProductVersion -ne $env:SCPI_VERSION) {
+            throw "ProductVersion mismatch: $($metadata.ProductVersion)"
+          }
+          if ($metadata.ProductName -ne "SCPI Automation Platform") {
+            throw "ProductName mismatch: $($metadata.ProductName)"
+          }
+
+      - name: Download and verify the locked Inno Setup compiler
+        shell: pwsh
+        run: |
+          $lock = Get-Content -Raw -Encoding utf8 .\packaging\windows\inno-lock.json | ConvertFrom-Json
+          $download = Join-Path $env:RUNNER_TEMP "innosetup-$($lock.version).exe"
+          Invoke-WebRequest -Uri $lock.download_url -OutFile $download
+          $actualHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $download).Hash.ToLowerInvariant()
+          if ($actualHash -ne $lock.sha256.ToLowerInvariant()) {
+            throw "Inno Setup SHA-256 mismatch"
+          }
+          $signature = Get-AuthenticodeSignature -LiteralPath $download
+          if ($signature.Status -ne "Valid" -or $signature.SignerCertificate.Subject -notmatch "Pyrsys B\.V\.") {
+            throw "Inno Setup publisher signature is not valid: $($signature.Status) $($signature.SignerCertificate.Subject)"
+          }
+          $installDir = Join-Path $env:RUNNER_TEMP "Inno-Setup-$($lock.version)"
+          $arguments = @(
+            "/VERYSILENT",
+            "/SUPPRESSMSGBOXES",
+            "/NORESTART",
+            "/SP-",
+            "/DIR=$installDir"
+          )
+          $process = Start-Process -FilePath $download -ArgumentList $arguments -Wait -PassThru
+          if ($process.ExitCode -ne 0) {
+            throw "Inno Setup installation failed with exit code $($process.ExitCode)"
+          }
+          $iscc = Join-Path $installDir "ISCC.exe"
+          if (-not (Test-Path -LiteralPath $iscc -PathType Leaf)) {
+            throw "ISCC.exe was not installed"
+          }
+          "ISCC_PATH=$iscc" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Build, silent-install-test, and uninstall the setup
+        run: >-
+          python .\tools\build_windows_installer.py
+          --payload ".\dist\payload"
+          --output ".\dist\assets"
+          --iscc "$env:ISCC_PATH"
+          --smoke-test
+
+      - name: Create the portable ZIP and public checksums
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem -LiteralPath .\dist\assets -Filter "SCPI-Automation-Platform-Setup-*.exe" -File
+          if ($installer.Count -ne 1) {
+            throw "Expected exactly one setup EXE, found $($installer.Count)"
+          }
+          python .\tools\create_windows_release_assets.py `
+            --payload ".\dist\payload" `
+            --installer $installer.FullName `
+            --output ".\dist\assets"
+
+      - name: Verify the portable download exactly as a user receives it
+        shell: pwsh
+        run: |
+          $archive = Get-ChildItem -LiteralPath .\dist\assets -Filter "SCPI-Automation-Platform-Portable-*.zip" -File
+          if ($archive.Count -ne 1) {
+            throw "Expected exactly one portable ZIP, found $($archive.Count)"
+          }
+          $expanded = Join-Path $env:RUNNER_TEMP "portable-check"
+          Expand-Archive -LiteralPath $archive.FullName -DestinationPath $expanded
+          $exe = Get-ChildItem -LiteralPath $expanded -Filter "SCPI-Automation-Platform.exe" -Recurse -File
+          if ($exe.Count -ne 1) {
+            throw "Expected exactly one portable application EXE, found $($exe.Count)"
+          }
+          $process = Start-Process -FilePath $exe.FullName `
+            -ArgumentList "--release-self-check" `
+            -Wait `
+            -PassThru
+          if ($process.ExitCode -ne 0) {
+            throw "Portable application self-check failed with exit code $($process.ExitCode)"
+          }
+
+      - name: Verify the exact public asset set
+        shell: pwsh
+        run: |
+          $expected = @(
+            "SCPI-Automation-Platform-Portable-$env:SCPI_RELEASE_LABEL-win64.zip",
+            "SCPI-Automation-Platform-Setup-$env:SCPI_RELEASE_LABEL-win64.exe",
+            "SHA256SUMS-Windows.txt"
+          ) | Sort-Object
+          $actual = Get-ChildItem -LiteralPath .\dist\assets -File |
+            ForEach-Object { $_.Name } |
+            Sort-Object
+          $difference = Compare-Object -ReferenceObject $expected -DifferenceObject $actual
+          if ($difference) {
+            throw "Unexpected Windows release asset set: $($difference | Out-String)"
+          }
+
+      - name: Store the verified release assets
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: windows-release-assets
+          path: dist/assets/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: build
+    runs-on: windows-2022
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      SCPI_RELEASE_LABEL: ${{ needs.build.outputs.release_label }}
+
+    steps:
+      - name: Download only the verified build output
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: windows-release-assets
+          path: dist/assets
+
+      - name: Create a draft release, verify it, and then publish
+        shell: pwsh
+        run: |
+          @"
+          ## 처음 사용하는 분
+
+          **`SCPI-Automation-Platform-Setup-$env:SCPI_RELEASE_LABEL-win64.exe`만 받으면 됩니다.**
+
+          1. 설치 파일을 더블클릭합니다.
+          2. 설치가 끝나면 `계측기 연결 도우미`를 실행합니다.
+          3. 처음에는 `데모 장비 4대로 둘러보기`로 화면을 확인합니다.
+
+          Python은 설치할 필요가 없습니다. 설치 권한이 없는 시험 PC에서는
+          `SCPI-Automation-Platform-Portable-$env:SCPI_RELEASE_LABEL-win64.zip`을
+          압축 해제한 뒤 EXE를 실행하세요.
+
+          ## 실제 장비를 연결하기 전에
+
+          실제 VISA 검색에는 시험 PC에 NI-VISA, Keysight IO Libraries 또는
+          R&S VISA 같은 통신 드라이버가 별도로 필요할 수 있습니다. 제조사
+          설치 프로그램과 DLL은 이 배포물에 포함하지 않습니다.
+
+          이 빌드는 자동 테스트, 독립 EXE 자체 검사, 설치·실행·제거 검사,
+          공개 파일 정책 검사와 SHA-256 검사를 통과한 파일입니다. 다만 이번
+          GitHub 빌드에서 실제 계측기를 다시 연결한 것은 아니므로 데모와
+          Dry Run부터 사용하세요.
+
+          아직 코드 서명을 적용하지 않아 Windows SmartScreen에서
+          `알 수 없는 게시자` 경고가 나올 수 있습니다. 공식 저장소에서 받은
+          파일인지 확인하고 `SHA256SUMS-Windows.txt`와 비교하세요.
+          "@ | Set-Content -Encoding utf8 .\dist\release-notes.md
+
+          $expected = @(
+            "SCPI-Automation-Platform-Portable-$env:SCPI_RELEASE_LABEL-win64.zip",
+            "SCPI-Automation-Platform-Setup-$env:SCPI_RELEASE_LABEL-win64.exe",
+            "SHA256SUMS-Windows.txt"
+          ) | Sort-Object
+          $assets = Get-ChildItem -LiteralPath .\dist\assets -File |
+            Sort-Object Name
+          $actual = $assets | ForEach-Object { $_.Name } | Sort-Object
+          $difference = Compare-Object -ReferenceObject $expected -DifferenceObject $actual
+          if ($difference) {
+            throw "Downloaded release assets differ from the verified set"
+          }
+          $assetPaths = @($assets | ForEach-Object { $_.FullName })
+
+          gh release create $env:GITHUB_REF_NAME $assetPaths `
+            --verify-tag `
+            --draft `
+            --prerelease `
+            --title "SCPI Automation Platform $env:SCPI_RELEASE_LABEL" `
+            --notes-file .\dist\release-notes.md
+          if ($LASTEXITCODE -ne 0) {
+            throw "Draft release creation failed"
+          }
+
+          $release = gh release view $env:GITHUB_REF_NAME `
+            --json isDraft,isPrerelease,assets |
+            ConvertFrom-Json
+          if (-not $release.isDraft -or -not $release.isPrerelease) {
+            throw "Release was not created as a draft prerelease"
+          }
+          $uploaded = $release.assets |
+            ForEach-Object { $_.name } |
+            Sort-Object
+          $difference = Compare-Object -ReferenceObject $expected -DifferenceObject $uploaded
+          if ($difference) {
+            throw "Draft release asset verification failed"
+          }
+
+          gh release edit $env:GITHUB_REF_NAME --draft=false --prerelease
+          if ($LASTEXITCODE -ne 0) {
+            throw "Release publication failed"
+          }
+          $published = gh release view $env:GITHUB_REF_NAME `
+            --json isDraft,isPrerelease |
+            ConvertFrom-Json
+          if ($published.isDraft -or -not $published.isPrerelease) {
+            throw "Release publication state verification failed"
+          }
