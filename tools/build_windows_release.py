@@ -45,7 +45,7 @@ def build_release(output_dir: Path) -> Path:
                 f"PyInstaller did not create the expected EXE: {executable}"
             )
         subprocess.run(
-            [str(executable), "--smoke-test"],
+            [str(executable), "--release-self-check"],
             cwd=dist_dir,
             check=True,
             timeout=120,

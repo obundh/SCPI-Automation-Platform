@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import argparse
 import sys
+import tempfile
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from typing import Sequence
 
 from scpi_automation import __version__
 from scpi_automation.execution import ExecutionResult
+from scpi_automation.identity.profile_catalog import catalog_profiles
 from scpi_automation.results import autosave_result_json
 from scpi_automation.routine import SelectedInstrument
 from scpi_automation.transport import DiscoveryRecord
@@ -34,6 +37,7 @@ class InstrumentControllerApp:
         self.root.geometry("1280x780")
         self.root.minsize(900, 620)
         self.root.configure(background="#F4F6F8")
+        self._apply_window_icon()
 
         self._configure_style()
 
@@ -91,6 +95,25 @@ class InstrumentControllerApp:
         self.root.protocol("WM_DELETE_WINDOW", self.close)
         self.root.bind("<Configure>", self._schedule_rescale, add="+")
         self.root.after_idle(self._apply_rescale)
+
+    def _apply_window_icon(self) -> None:
+        if sys.platform != "win32":
+            return
+        bundle_root = getattr(sys, "_MEIPASS", None)
+        if bundle_root is not None:
+            icon = Path(bundle_root) / "assets" / "scpi-automation-platform.ico"
+        else:
+            icon = (
+                Path(__file__).resolve().parents[2]
+                / "assets"
+                / "scpi-automation-platform.ico"
+            )
+        if not icon.is_file():
+            return
+        try:
+            self.root.iconbitmap(default=str(icon))
+        except tk.TclError:
+            pass
 
     def _show_discovery_tab(self) -> None:
         self.notebook.select(self.discovery_tab)
@@ -329,20 +352,62 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Create and destroy the Tk GUI without opening a visible window.",
     )
+    parser.add_argument(
+        "--release-self-check",
+        action="store_true",
+        help=(
+            "Check the bundled catalog, PyVISA, Excel writer, temporary-file "
+            "access, and Tk GUI without opening a visible window."
+        ),
+    )
     return parser
+
+
+def _run_release_component_checks() -> None:
+    profiles = catalog_profiles()
+    if not profiles:
+        raise RuntimeError("The bundled SCPI profile catalog is empty")
+
+    import pyvisa
+    import xlsxwriter
+
+    if not pyvisa.__version__:
+        raise RuntimeError("The bundled PyVISA version is unavailable")
+
+    with tempfile.TemporaryDirectory(prefix="scpi-release-self-check-") as temporary:
+        workbook_path = Path(temporary) / "self-check.xlsx"
+        workbook = xlsxwriter.Workbook(workbook_path)
+        worksheet = workbook.add_worksheet("준비 상태")
+        worksheet.write(0, 0, "SCPI Automation Platform")
+        worksheet.write(1, 0, len(profiles))
+        workbook.close()
+        if not workbook_path.is_file() or workbook_path.stat().st_size == 0:
+            raise RuntimeError("The bundled Excel writer did not create a file")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.release_self_check:
+        try:
+            _run_release_component_checks()
+        except Exception as exc:
+            if sys.stderr is not None:
+                print(f"RELEASE_SELF_CHECK_FAILED: {exc}", file=sys.stderr)
+            return 2
     root = tk.Tk()
-    if args.smoke_test:
+    hidden_check = args.smoke_test or args.release_self_check
+    if hidden_check:
         root.withdraw()
     app = InstrumentControllerApp(root)
-    if args.smoke_test:
+    if hidden_check:
         root.update_idletasks()
         app.close()
         if sys.stdout is not None:
-            print("GUI_SMOKE_OK")
+            print(
+                "RELEASE_SELF_CHECK_OK"
+                if args.release_self_check
+                else "GUI_SMOKE_OK"
+            )
         return 0
     root.mainloop()
     return 0

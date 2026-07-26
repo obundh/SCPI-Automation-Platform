@@ -25,12 +25,21 @@ _REQUIRED_FILES = (
     "SECURITY.md",
     "docs/comics/ASSET_PROVENANCE.md",
     "packaging/windows/build-lock.json",
+    "packaging/windows/inno-lock.json",
     "packaging/windows/requirements-build-win-py311.txt",
+    "packaging/windows/scpi_automation.iss",
     "packaging/windows/scpi_automation.spec",
     "packaging/windows/README-KO.txt",
+    "assets/scpi-automation-platform.ico",
+    "assets/README.md",
+    "docs/WINDOWS_INSTALL_KO.md",
     "packaging/licenses/Tcl-8.6-license.terms",
     "packaging/licenses/Tk-8.6-license.terms",
+    "packaging/licenses/Inno-Setup-6.7.3-license.txt",
+    ".github/workflows/release-windows.yml",
+    "tools/build_windows_installer.py",
     "tools/build_windows_release.py",
+    "tools/create_windows_release_assets.py",
     "tools/prepare_windows_release.py",
 )
 _FORBIDDEN_SUFFIXES = {
@@ -63,11 +72,13 @@ _TEXT_SUFFIXES = {
     ".bat",
     ".csv",
     ".in",
+    ".iss",
     ".json",
     ".md",
     ".ps1",
     ".py",
     ".spec",
+    ".svg",
     ".toml",
     ".txt",
     ".yaml",
@@ -195,6 +206,14 @@ def scan_working_tree(root: Path = PROJECT_ROOT) -> list[Violation]:
     for required in _REQUIRED_FILES:
         if not (root / required).is_file():
             violations.append(Violation(required, "required file is missing"))
+    icon_path = root / "assets" / "scpi-automation-platform.ico"
+    if icon_path.is_file() and icon_path.read_bytes()[:4] != b"\x00\x00\x01\x00":
+        violations.append(
+            Violation(
+                "assets/scpi-automation-platform.ico",
+                "Windows icon header is invalid",
+            )
+        )
     for relative in _untracked_python_sources(root):
         violations.append(
             Violation(
